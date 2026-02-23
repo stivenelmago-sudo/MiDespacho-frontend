@@ -1,0 +1,98 @@
+:host {
+  display: block;
+}
+
+.required {
+  color: #dc2626;
+  margin-left: 0.25rem;
+}
+
+// Animaciones
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+// Estilos del formulario
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+textarea {
+  font-family: inherit;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// Estilos de botones
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.btn-primary {
+    background-color: #059669;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background-color: #047857;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &.btn-secondary {
+    background-color: #6b7280;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background-color: #4b5563;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &.btn-sm {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+  }
+}

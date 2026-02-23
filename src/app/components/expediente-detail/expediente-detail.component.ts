@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Expediente } from '../../models/expediente.model';
 import { ExpedienteService } from '../../services/expediente.service';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
-import { DocumentSetListComponent } from '../document-set-list/document-set-list.component';
+import { DocumentSetsSectionComponent } from '../document-sets-section/document-sets-section.component';
 
 @Component({
   selector: 'app-expediente-detail',
@@ -156,15 +156,12 @@ import { DocumentSetListComponent } from '../document-set-list/document-set-list
                 <!-- Upload form -->
                 <app-file-upload [expedienteId]="exp.id" (uploadSuccess)="onUploadSuccess()" />
 
-                <!-- Documents list -->
-                <div>
-                  <h2 class="text-2xl font-bold text-gray-900 mb-6">Conjuntos de Documentos</h2>
-                  <app-document-set-list
-                    [documentSets]="exp.document_sets"
-                    (documentDeleted)="onDocumentDeleted()"
-                    (fileDeleted)="onFileDeleted()"
-                  />
-                </div>
+                <!-- Documents section with list -->
+                <app-document-sets-section
+                  [documentSets]="exp.document_sets"
+                  [expedienteId]="exp.id"
+                  (documentsRefresh)="onUploadSuccess()"
+                />
               </div>
             </section>
           </div>
@@ -179,7 +176,7 @@ import { DocumentSetListComponent } from '../document-set-list/document-set-list
     </div>
   `,
   standalone: true,
-  imports: [CommonModule, FileUploadComponent, DocumentSetListComponent],
+  imports: [CommonModule, FileUploadComponent, DocumentSetsSectionComponent],
   styles: [],
 })
 export class ExpedienteDetailComponent implements OnInit {
@@ -224,14 +221,6 @@ export class ExpedienteDetailComponent implements OnInit {
   }
 
   onUploadSuccess(): void {
-    this.loadExpediente();
-  }
-
-  onDocumentDeleted(): void {
-    this.loadExpediente();
-  }
-
-  onFileDeleted(): void {
     this.loadExpediente();
   }
 
