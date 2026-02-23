@@ -92,6 +92,14 @@ import { ExpedienteService } from '../../services/expediente.service';
                           </div>
                         </div>
                         <button
+                          (click)="downloadFile(file.id, file.nombre_original)"
+                          class="btn btn-secondary btn-sm mr-2 flex-shrink-0"
+                          [attr.aria-label]="'Descargar archivo: ' + file.nombre_original"
+                          title="Descargar archivo"
+                        >
+                          ⬇️
+                        </button>
+                        <button
                           (click)="deleteFile(file.id)"
                           [disabled]="isDeleting() === file.id"
                           class="btn btn-danger btn-sm ml-2 flex-shrink-0"
@@ -148,6 +156,10 @@ export class DocumentSetListComponent {
         },
       });
     }
+  }
+
+  downloadFile(fileId: string, fileName: string): void {
+    this.expedienteService.downloadFile(fileId);
   }
 
   deleteSet(documentSetId: string): void {

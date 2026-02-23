@@ -176,7 +176,7 @@ import { ExpedienteService } from '../../services/expediente.service';
           <div class="flex gap-3 pt-4 border-t border-gray-200">
             <button
               type="submit"
-              [disabled]="isUploading() || selectedFiles().length === 0"
+              [disabled]="isUploading() || selectedFiles().length === 0 || !titulo().trim()"
               class="flex-1 btn btn-primary flex items-center justify-center gap-2"
               [attr.aria-busy]="isUploading()"
             >

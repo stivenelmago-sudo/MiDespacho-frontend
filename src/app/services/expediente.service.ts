@@ -61,4 +61,12 @@ export class ExpedienteService {
       `${this.apiUrl}/file/document-set/${documentSetId}`,
     );
   }
+
+  downloadFile(fileId: string): void {
+    const downloadUrl = `${this.apiUrl}/file/download/${fileId}`;
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = '';
+    link.click();
+  }
 }
