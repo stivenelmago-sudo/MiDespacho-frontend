@@ -7,7 +7,7 @@
       aria-label="Close menu"></button>
     <!-- Sidebar: fixed on desktop, hidden on mobile -->
     <app-sidebar [isOpen]="sidebarOpen()" (closeMenu)="closeSidebar()"
-      class="fixed left-0 top-16 z-30 h-[calc(100vh-4rem)] md:static md:h-auto md:z-0"></app-sidebar>
+      class="fixed left-0 top-16 z-30 w-56 md:static md:z-auto md:w-auto md:flex-shrink-0 md:h-full"></app-sidebar>
     <main class="flex-1 overflow-y-auto w-full">
       <div class="w-full h-full px-4 py-6 md:px-8 md:py-8">
         <router-outlet></router-outlet>
