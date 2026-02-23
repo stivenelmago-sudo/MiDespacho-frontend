@@ -9,23 +9,38 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
 @Component({
   selector: 'app-expediente-detail',
   template: `
-    <div class="min-h-screen bg-gray-100">
-      <!-- Header -->
-      <div class="bg-legal-blue-600 text-white shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <!-- Header con gradient mejorado -->
+      <div
+        class="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white shadow-lg border-b border-blue-900"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           @if (expediente(); as exp) {
             <div class="flex justify-between items-start">
-              <div>
-                <h1 class="text-3xl font-bold">{{ exp.cliente_nombre }}</h1>
-                <p class="text-legal-blue-200 mt-2">Expediente #{{ exp.numero_expediente }}</p>
+              <div class="flex-1">
+                <div class="flex items-center gap-4 mb-3">
+                  <div class="p-3 bg-blue-500 rounded-lg shadow-lg">
+                    <span class="text-2xl">⚖️</span>
+                  </div>
+                  <div>
+                    <h1 class="text-4xl font-bold text-white">{{ exp.cliente_nombre }}</h1>
+                    <p class="text-blue-200 mt-2 text-lg">
+                      Expediente #{{ exp.numero_expediente }}
+                    </p>
+                  </div>
+                </div>
               </div>
               <div class="text-right">
                 <div
                   [class]="
-                    'inline-block px-4 py-2 rounded-full text-sm font-medium ' +
+                    'inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold shadow-md ' +
                     getStatusClass(exp.estado)
                   "
                 >
+                  <span
+                    class="w-2 h-2 rounded-full inline-block"
+                    [class]="getStatusDot(exp.estado)"
+                  ></span>
                   {{ exp.estado }}
                 </div>
               </div>
@@ -35,26 +50,30 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
       </div>
 
       <!-- Main content -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         @if (isLoading()) {
           <div class="flex justify-center items-center h-96">
             <div class="text-center">
               <div
-                class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-legal-blue-600"
+                class="inline-block animate-spin rounded-full h-16 w-16 border-4 border-gray-200 border-t-blue-600 mb-4"
               ></div>
-              <p class="mt-4 text-gray-600">Cargando expediente...</p>
+              <p class="text-lg text-gray-600 font-medium">Cargando expediente...</p>
             </div>
           </div>
         } @else if (expediente(); as exp) {
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Sidebar - Información del expediente -->
             <aside class="lg:col-span-1">
-              <div class="card">
-                <div class="card-header">
-                  <h3>Información del Expediente</h3>
+              <div
+                class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-100"
+              >
+                <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-5">
+                  <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <span>📋</span> Información del Expediente
+                  </h3>
                 </div>
 
-                <div class="space-y-4">
+                <div class="px-6 py-6 space-y-6">
                   <div>
                     <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">
                       Número de Expediente
@@ -129,20 +148,33 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
                     </div>
                   }
 
-                  <!-- Estadísticas -->
-                  <div class="pt-4 border-t border-gray-200 mt-6">
+                  <!-- Estadísticas mejoradas -->
+                  <div class="pt-6 border-t-2 border-gray-200 mt-8">
+                    <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">
+                      Resumen
+                    </p>
                     <div class="grid grid-cols-2 gap-4">
-                      <div class="text-center">
-                        <p class="text-2xl font-bold text-legal-blue-600">
+                      <div
+                        class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-5 text-center border border-blue-200 hover:border-blue-300 hover:shadow-md transition-all duration-300"
+                      >
+                        <div class="text-3xl font-bold text-blue-600 mb-2">
                           {{ exp.document_sets.length }}
+                        </div>
+                        <p class="text-xs font-semibold text-gray-700">
+                          Conjunto{{ exp.document_sets.length !== 1 ? 's' : '' }}
                         </p>
-                        <p class="text-xs text-gray-600 mt-1">Conjuntos</p>
+                        <p class="text-xs text-gray-600 mt-1">📁</p>
                       </div>
-                      <div class="text-center">
-                        <p class="text-2xl font-bold text-legal-blue-600">
+                      <div
+                        class="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-lg p-5 text-center border border-emerald-200 hover:border-emerald-300 hover:shadow-md transition-all duration-300"
+                      >
+                        <div class="text-3xl font-bold text-emerald-600 mb-2">
                           {{ getTotalFiles(exp) }}
+                        </div>
+                        <p class="text-xs font-semibold text-gray-700">
+                          Archivo{{ getTotalFiles(exp) !== 1 ? 's' : '' }}
                         </p>
-                        <p class="text-xs text-gray-600 mt-1">Archivos</p>
+                        <p class="text-xs text-gray-600 mt-1">📄</p>
                       </div>
                     </div>
                   </div>
@@ -166,9 +198,11 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
             </section>
           </div>
         } @else {
-          <div class="card">
-            <div class="text-center py-12">
-              <p class="text-gray-600">No se encontró el expediente</p>
+          <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+            <div class="text-center py-16">
+              <span class="text-6xl mb-4 inline-block opacity-50">⚠️</span>
+              <p class="text-xl font-bold text-gray-900">No se encontró el expediente</p>
+              <p class="text-gray-600 mt-2">El expediente que buscas no existe o fue eliminado</p>
             </div>
           </div>
         }
@@ -245,5 +279,15 @@ export class ExpedienteDetailComponent implements OnInit {
       Suspendido: 'bg-red-100 text-red-800',
     };
     return classes[estado] || 'bg-gray-100 text-gray-800';
+  }
+
+  getStatusDot(estado: string): string {
+    const classes: Record<string, string> = {
+      Activo: 'bg-green-500',
+      Cerrado: 'bg-gray-500',
+      'En Revisión': 'bg-yellow-500',
+      Suspendido: 'bg-red-500',
+    };
+    return classes[estado] || 'bg-gray-500';
   }
 }
