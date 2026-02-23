@@ -6,102 +6,118 @@ import { ExpedienteService } from '../../services/expediente.service';
 @Component({
   selector: 'app-document-set-list',
   template: `
-    <div class="space-y-4">
+    <section role="region" aria-labelledby="document-sets-title" class="space-y-4">
+      <h2 id="document-sets-title" class="text-2xl font-bold text-gray-900 mb-6">
+        📚 Conjuntos de Documentos
+      </h2>
+
       @if (_documentSets().length === 0) {
-        <div class="card">
-          <div class="text-center py-8">
-            <svg
-              class="mx-auto h-12 w-12 text-gray-400 mb-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
-            </svg>
-            <p class="text-gray-600">No hay documentos cargados aún</p>
-            <p class="text-sm text-gray-500 mt-1">
+        <div class="card border-l-4 border-blue-500 bg-blue-50 animate-fade-in">
+          <div class="text-center py-12">
+            <div class="text-6xl mb-4">📭</div>
+            <p class="text-lg font-semibold text-gray-900">No hay documentos cargados aún</p>
+            <p class="text-sm text-gray-600 mt-2">
               Carga el primer conjunto de documentos para comenzar
             </p>
           </div>
         </div>
       } @else {
-        @for (docSet of _documentSets(); track docSet.id) {
-          <div class="card">
-            <div class="card-header flex justify-between items-start">
-              <div class="flex-1">
-                <h4 class="text-lg font-semibold text-gray-900">{{ docSet.titulo }}</h4>
-                <p class="text-sm text-gray-600 mt-1">{{ docSet.descripcion }}</p>
-                <div class="flex gap-4 mt-2 text-xs text-gray-500">
-                  <span>📁 {{ docSet.files.length }} archivo(s)</span>
-                  <span
-                    >📅
-                    {{ formatDate(docSet.created_at) }}
-                  </span>
-                </div>
-              </div>
-              <button
-                (click)="deleteSet(docSet.id)"
-                class="text-red-600 hover:text-red-800 ml-4"
-                title="Eliminar conjunto"
-              >
-                🗑️
-              </button>
-            </div>
-
-            <!-- Lista de archivos -->
-            @if (docSet.files.length > 0) {
-              <div class="space-y-2">
-                @for (file of docSet.files; track file.id) {
-                  <div
-                    class="flex items-center justify-between p-3 bg-gray-50 rounded border border-gray-200 hover:border-gray-300 transition-colors"
-                  >
-                    <div class="flex items-center space-x-3 flex-1">
-                      <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                          fill-rule="evenodd"
-                          d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900 truncate">
-                          {{ file.nombre_original }}
-                        </p>
-                        <p class="text-xs text-gray-500">
-                          {{ formatFileSize(file.tamanio_bytes) }} •
-                          {{ formatDate(file.created_at) }}
-                        </p>
-                      </div>
-                    </div>
-                    <div class="flex gap-2">
-                      <!-- <button
-                        class="text-legal-blue-600 hover:text-legal-blue-800"
-                        title="Descargar"
-                      >
-                        ⬇️
-                      </button> -->
-                      <button
-                        (click)="deleteFile(file.id)"
-                        class="text-red-600 hover:text-red-800"
-                        title="Eliminar archivo"
-                      >
-                        ✕
-                      </button>
-                    </div>
+        <div class="grid gap-4">
+          @for (docSet of _documentSets(); track docSet.id) {
+            <div
+              class="card border-l-4 border-blue-500 hover:border-blue-600 hover:shadow-lg transition-all duration-300 animate-slide-up"
+              role="region"
+              [attr.aria-label]="'Conjunto de documentos: ' + docSet.titulo"
+            >
+              <!-- Header del Conjunto -->
+              <div class="flex justify-between items-start mb-4 pb-4 border-b border-gray-200">
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="text-xl">📋</span>
+                    <h3 class="text-xl font-bold text-gray-900">{{ docSet.titulo }}</h3>
                   </div>
-                }
+                  <p class="text-sm text-gray-600 ml-8">{{ docSet.descripcion }}</p>
+                  <div class="flex gap-6 mt-3 ml-8 text-sm text-gray-500">
+                    <span class="flex items-center gap-1">
+                      <span>📁</span>
+                      <strong>{{ docSet.files.length }}</strong>
+                      {{ docSet.files.length === 1 ? 'archivo' : 'archivos' }}
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <span>📅</span>
+                      {{ formatDate(docSet.created_at) }}
+                    </span>
+                  </div>
+                </div>
+                <button
+                  (click)="deleteSet(docSet.id)"
+                  [disabled]="isDeleting() === docSet.id"
+                  class="btn btn-danger btn-sm ml-4 flex items-center gap-2"
+                  [attr.aria-label]="'Eliminar conjunto de documentos: ' + docSet.titulo"
+                  title="Eliminar conjunto"
+                >
+                  🗑️
+                  {{ isDeleting() === docSet.id ? 'Eliminando...' : 'Eliminar' }}
+                </button>
               </div>
-            }
-          </div>
-        }
+
+              <!-- Lista de archivos -->
+              @if (docSet.files.length > 0) {
+                <div class="space-y-2">
+                  <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                    Archivos incluidos
+                  </p>
+                  <ul role="list" class="space-y-2">
+                    @for (file of docSet.files; track file.id) {
+                      <li
+                        role="listitem"
+                        class="flex items-center justify-between p-3 bg-gradient-to-r from-gray-50 to-white rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-all duration-200"
+                      >
+                        <div class="flex items-center space-x-3 flex-1 min-w-0">
+                          <span class="text-lg">📄</span>
+                          <div class="flex-1 min-w-0">
+                            <p
+                              class="text-sm font-medium text-gray-900 truncate"
+                              [title]="file.nombre_original"
+                            >
+                              {{ file.nombre_original }}
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">
+                              <span class="text-blue-600 font-semibold">
+                                {{ formatFileSize(file.tamanio_bytes) }}
+                              </span>
+                              •
+                              {{ formatDate(file.created_at) }}
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          (click)="deleteFile(file.id)"
+                          [disabled]="isDeleting() === file.id"
+                          class="btn btn-danger btn-sm ml-2 flex-shrink-0"
+                          [attr.aria-label]="'Eliminar archivo: ' + file.nombre_original"
+                          title="Eliminar archivo"
+                        >
+                          {{ isDeleting() === file.id ? '⏳' : '✕' }}
+                        </button>
+                      </li>
+                    }
+                  </ul>
+                </div>
+              }
+            </div>
+          }
+        </div>
       }
-    </div>
+    </section>
   `,
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
   standalone: true,
   imports: [CommonModule],
 })

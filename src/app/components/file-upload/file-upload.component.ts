@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, signal, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ExpedienteService } from '../../services/expediente.service';
@@ -6,73 +6,117 @@ import { ExpedienteService } from '../../services/expediente.service';
 @Component({
   selector: 'app-file-upload',
   template: `
-    <div class="card">
-      <div class="card-header">
-        <h3>Cargar Nuevos Documentos</h3>
+    <section
+      class="card border-l-4 border-green-500 animate-fade-in"
+      role="region"
+      aria-labelledby="upload-title"
+    >
+      <!-- Header mejorado -->
+      <div class="mb-6 pb-4 border-b border-gray-200">
+        <h2 id="upload-title" class="text-2xl font-bold text-gray-900 flex items-center gap-2">
+          <span>📤</span>
+          Cargar Nuevos Documentos
+        </h2>
+        <p class="text-sm text-gray-600 mt-1">Carga documentos organizados en conjuntos</p>
       </div>
 
-      <form (ngSubmit)="onSubmit()" #uploadForm="ngForm">
-        <div class="space-y-4">
+      <form
+        (ngSubmit)="onSubmit()"
+        #uploadForm="ngForm"
+        aria-label="Formulario de carga de documentos"
+      >
+        <div class="space-y-6">
           <!-- Campo Título -->
-          <div>
-            <label for="titulo" class="block text-sm font-medium text-gray-700">
+          <div class="form-group">
+            <label for="titulo" class="block text-sm font-semibold text-gray-900 mb-2">
               Título del Conjunto
+              <span class="required">*</span>
             </label>
             <input
               id="titulo"
               type="text"
               [(ngModel)]="titulo"
               name="titulo"
-              class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-legal-blue-500"
+              class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-colors"
               placeholder="Ej: Demanda inicial"
+              aria-required="true"
+              aria-describedby="titulo-desc"
               required
             />
+            <p id="titulo-desc" class="form-hint mt-2">
+              Proporciona un nombre descriptivo para el conjunto de documentos
+            </p>
           </div>
 
           <!-- Campo Descripción -->
-          <div>
-            <label for="descripcion" class="block text-sm font-medium text-gray-700">
-              Descripción (Opcional)
+          <div class="form-group">
+            <label for="descripcion" class="block text-sm font-semibold text-gray-900 mb-2">
+              Descripción
+              <span class="text-xs text-gray-500 font-normal">(opcional)</span>
             </label>
             <textarea
               id="descripcion"
               [(ngModel)]="descripcion"
               name="descripcion"
-              class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-legal-blue-500"
-              placeholder="Descripción de los documentos..."
+              class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-colors"
+              placeholder="Descripción detallada de los documentos..."
               rows="3"
+              aria-describedby="descripcion-desc"
             ></textarea>
+            <p id="descripcion-desc" class="form-hint mt-2">
+              Añade detalles que ayuden a identificar estos documentos
+            </p>
           </div>
 
           <!-- Campo archivos con drag & drop -->
-          <div
-            class="mt-4 border-2 border-dashed border-legal-blue-300 rounded-lg p-6 text-center cursor-pointer hover:border-legal-blue-500 transition-colors"
-            (drop)="onDrop($event)"
-            (dragover)="onDragOver($event)"
-            (dragleave)="onDragLeave($event)"
-            [class.bg-legal-blue-50]="isDragging()"
-          >
-            <div class="space-y-2">
-              <svg
-                class="mx-auto h-12 w-12 text-gray-400"
-                stroke="currentColor"
-                fill="none"
-                viewBox="0 0 48 48"
-              >
-                <path
-                  d="M28 8H12a4 4 0 00-4 4v20a4 4 0 004 4h24a4 4 0 004-4V20m-10-6l-3.172-3.172a2 2 0 00-2.828 0L22 14m10-6v4m0 0l-4-4m4 4l4-4"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <p class="text-sm font-medium text-gray-700">
-                Arrastra archivos aquí o
-                <span class="text-legal-blue-600 cursor-pointer" (click)="fileInput.click()">
-                  haz clic para seleccionar
-                </span>
-              </p>
-              <p class="text-xs text-gray-500">Formatos permitidos: PDF, DOC, DOCX, JPG, PNG</p>
+          <div class="form-group">
+            <label class="block text-sm font-semibold text-gray-900 mb-2">
+              Archivos
+              <span class="required">*</span>
+            </label>
+            <div
+              role="region"
+              aria-label="Área para cargar archivos por arrastre o clic"
+              aria-describedby="file-upload-help"
+              class="relative border-2 border-dashed border-green-300 rounded-xl p-8 text-center cursor-pointer hover:border-green-500 hover:bg-green-50 transition-all duration-200 bg-gradient-to-b from-green-50 to-white"
+              [class.border-green-500]="isDragging()"
+              [class.bg-green-100]="isDragging()"
+              [attr.aria-busy]="isUploading()"
+              (drop)="onDrop($event)"
+              (dragover)="onDragOver($event)"
+              (dragleave)="onDragLeave($event)"
+            >
+              <div class="space-y-3">
+                <div aria-hidden="true" class="text-5xl">📁</div>
+                <div>
+                  <p class="text-base font-semibold text-gray-900">
+                    Arrastra archivos aquí o
+                    <button
+                      type="button"
+                      (click)="fileInput.click()"
+                      class="text-green-600 hover:text-green-700 underline font-bold transition-colors"
+                      aria-label="Abre el diálogo para seleccionar archivos"
+                    >
+                      selecciona desde tu dispositivo
+                    </button>
+                  </p>
+                  <p id="file-upload-help" class="text-xs text-gray-600 mt-2">
+                    📋 <strong>Formatos:</strong> PDF, DOC, DOCX, JPG, PNG
+                    <br />
+                    📏 <strong>Límite:</strong> máximo 10 MB por archivo
+                  </p>
+                </div>
+                @if (isUploading()) {
+                  <p
+                    aria-live="polite"
+                    aria-atomic="true"
+                    class="text-sm text-green-600 font-semibold flex items-center justify-center gap-2"
+                  >
+                    <span class="animate-spin">⏳</span>
+                    Cargando archivos...
+                  </p>
+                }
+              </div>
               <input
                 #fileInput
                 type="file"
@@ -80,40 +124,45 @@ import { ExpedienteService } from '../../services/expediente.service';
                 hidden
                 (change)="onFileSelected($event)"
                 accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                aria-label="Seleccionar archivos para cargar"
               />
             </div>
           </div>
 
           <!-- Lista de archivos seleccionados -->
           @if (selectedFiles().length > 0) {
-            <div class="mt-4">
-              <h4 class="font-medium text-gray-700 mb-2">
+            <div
+              role="region"
+              aria-label="Archivos seleccionados"
+              class="bg-blue-50 rounded-lg p-4 border border-blue-200"
+            >
+              <h4 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <span>📋</span>
                 Archivos seleccionados ({{ selectedFiles().length }})
               </h4>
-              <ul class="space-y-2">
+              <ul class="space-y-2" role="list">
                 @for (file of selectedFiles(); let idx = $index; track idx) {
                   <li
-                    class="flex items-center justify-between p-2 bg-gray-50 rounded border border-gray-200"
+                    class="flex items-center justify-between p-3 bg-white rounded-lg border border-blue-200 hover:border-blue-300 hover:shadow-md transition-all duration-200"
+                    role="listitem"
                   >
-                    <div class="flex items-center space-x-2">
-                      <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                          fill-rule="evenodd"
-                          d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <div>
-                        <p class="text-sm font-medium text-gray-900">{{ file.name }}</p>
-                        <p class="text-xs text-gray-500">
-                          {{ formatFileSize(file.size) }}
+                    <div class="flex items-center space-x-3 flex-1 min-w-0">
+                      <span aria-hidden="true" class="text-lg">📄</span>
+                      <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate" [title]="file.name">
+                          {{ file.name }}
+                        </p>
+                        <p class="text-xs text-gray-500 mt-1">
+                          <strong class="text-blue-600">{{ formatFileSize(file.size) }}</strong>
                         </p>
                       </div>
                     </div>
                     <button
                       type="button"
                       (click)="removeFile(idx)"
-                      class="text-red-600 hover:text-red-800"
+                      class="ml-2 flex-shrink-0 text-red-600 hover:text-red-700 hover:bg-red-50 rounded p-2 transition-colors font-bold"
+                      [attr.aria-label]="'Eliminar archivo: ' + file.name"
+                      title="Eliminar archivo"
                     >
                       ✕
                     </button>
@@ -123,50 +172,85 @@ import { ExpedienteService } from '../../services/expediente.service';
             </div>
           }
 
-          <!-- Botones -->
-          <div class="flex gap-3 pt-4">
+          <!-- Botones de acción -->
+          <div class="flex gap-3 pt-4 border-t border-gray-200">
             <button
               type="submit"
               [disabled]="isUploading() || selectedFiles().length === 0"
-              class="flex-1 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              class="flex-1 btn btn-primary flex items-center justify-center gap-2"
+              [attr.aria-busy]="isUploading()"
             >
               @if (isUploading()) {
-                Cargando...
+                <span aria-hidden="true">⏳</span>
+                <span>Cargando...</span>
               } @else {
-                Cargar Documentos
+                <span aria-hidden="true">📤</span>
+                <span>Cargar Documentos</span>
               }
             </button>
             <button
               type="button"
               (click)="resetForm()"
               [disabled]="isUploading()"
-              class="btn-secondary disabled:opacity-50"
+              class="btn btn-secondary flex items-center justify-center gap-2"
+              aria-label="Limpiar formulario"
+              title="Limpiar todos los campos y archivos"
             >
-              Limpiar
+              <span aria-hidden="true">↻</span>
+              <span>Limpiar</span>
             </button>
           </div>
 
+          <!-- Validación de errores -->
+          @if (validationErrors().length > 0) {
+            <div
+              role="alert"
+              aria-live="assertive"
+              class="p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-lg space-y-2 animate-slide-up"
+            >
+              <p class="font-semibold text-yellow-900 flex items-center gap-2">
+                <span aria-hidden="true">⚠️</span>
+                Por favor revisa los siguientes errores:
+              </p>
+              <ul class="list-disc list-inside space-y-1 text-yellow-800 text-sm">
+                @for (error of validationErrors(); track error) {
+                  <li>{{ error }}</li>
+                }
+              </ul>
+            </div>
+          }
+
           <!-- Mensaje de error -->
           @if (errorMessage()) {
-            <div class="p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
-              {{ errorMessage() }}
+            <div
+              role="alert"
+              aria-live="assertive"
+              class="p-4 bg-red-50 border-l-4 border-red-400 rounded-lg text-red-700 flex items-start gap-3 animate-slide-up"
+            >
+              <span aria-hidden="true" class="text-xl">❌</span>
+              <span class="flex-1">{{ errorMessage() }}</span>
             </div>
           }
 
           <!-- Mensaje de éxito -->
           @if (successMessage()) {
-            <div class="p-3 bg-green-50 border border-green-200 rounded text-green-700 text-sm">
-              {{ successMessage() }}
+            <div
+              role="status"
+              aria-live="polite"
+              class="p-4 bg-green-50 border-l-4 border-green-400 rounded-lg text-green-700 flex items-start gap-3 animate-slide-up"
+            >
+              <span aria-hidden="true" class="text-xl">✅</span>
+              <span class="flex-1">{{ successMessage() }}</span>
             </div>
           }
         </div>
       </form>
-    </div>
+    </section>
   `,
   standalone: true,
   imports: [CommonModule, FormsModule],
 })
-export class FileUploadComponent implements OnInit {
+export class FileUploadComponent {
   @Input() expedienteId: string = '';
   @Output() uploadSuccess = new EventEmitter<void>();
 
@@ -177,19 +261,33 @@ export class FileUploadComponent implements OnInit {
   protected readonly errorMessage = signal('');
   protected readonly successMessage = signal('');
   protected readonly isDragging = signal(false);
+  protected readonly validationErrors = signal<string[]>([]);
+
+  private readonly MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+  private readonly ALLOWED_TYPES = [
+    'application/pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'image/jpeg',
+    'image/png',
+  ];
 
   constructor(private readonly expedienteService: ExpedienteService) {}
-
-  ngOnInit(): void {
-    // Inicializar si es necesario
-  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
       const files = Array.from(input.files);
+      const validationErrors = this.validateFiles(files);
+
+      if (validationErrors.length > 0) {
+        this.validationErrors.set(validationErrors);
+        return;
+      }
+
       this.selectedFiles.set(files);
       this.errorMessage.set('');
+      this.validationErrors.set([]);
     }
   }
 
@@ -212,9 +310,35 @@ export class FileUploadComponent implements OnInit {
 
     if (event.dataTransfer?.files) {
       const files = Array.from(event.dataTransfer.files);
+      const validationErrors = this.validateFiles(files);
+
+      if (validationErrors.length > 0) {
+        this.validationErrors.set(validationErrors);
+        return;
+      }
+
       this.selectedFiles.set(files);
       this.errorMessage.set('');
+      this.validationErrors.set([]);
     }
+  }
+
+  private validateFiles(files: File[]): string[] {
+    const errors: string[] = [];
+
+    files.forEach((file) => {
+      // Validar tamaño
+      if (file.size > this.MAX_FILE_SIZE) {
+        errors.push(`${file.name} excede el tamaño máximo de 10 MB`);
+      }
+
+      // Validar tipo
+      if (!this.ALLOWED_TYPES.includes(file.type)) {
+        errors.push(`${file.name} tiene un formato no permitido. Usa PDF, DOC, DOCX, JPG o PNG`);
+      }
+    });
+
+    return errors;
   }
 
   removeFile(index: number): void {
@@ -223,32 +347,51 @@ export class FileUploadComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (!this.titulo() || this.selectedFiles().length === 0) {
-      this.errorMessage.set('Por favor completa el título y selecciona al menos un archivo');
+    const errors = this.validateSubmit();
+
+    if (errors.length > 0) {
+      this.validationErrors.set(errors);
       return;
     }
 
     this.isUploading.set(true);
     this.errorMessage.set('');
     this.successMessage.set('');
+    this.validationErrors.set([]);
 
     this.expedienteService
       .uploadFiles(this.expedienteId, this.titulo(), this.descripcion(), this.selectedFiles())
       .subscribe({
         next: () => {
           this.isUploading.set(false);
-          this.successMessage.set('Documentos cargados correctamente');
+          this.successMessage.set('✅ Documentos cargados correctamente');
           this.resetForm();
           this.uploadSuccess.emit();
 
-          // Limpiar mensaje después de 3 segundos
-          setTimeout(() => this.successMessage.set(''), 3000);
+          // Limpiar mensaje después de 4 segundos
+          setTimeout(() => this.successMessage.set(''), 4000);
         },
         error: (error) => {
           this.isUploading.set(false);
-          this.errorMessage.set(error?.error?.message || 'Error al cargar los documentos');
+          const errorMsg =
+            error?.error?.message || 'Error al cargar los documentos. Intenta nuevamente.';
+          this.errorMessage.set(errorMsg);
         },
       });
+  }
+
+  private validateSubmit(): string[] {
+    const errors: string[] = [];
+
+    if (!this.titulo().trim()) {
+      errors.push('El título del conjunto es requerido');
+    }
+
+    if (this.selectedFiles().length === 0) {
+      errors.push('Debes seleccionar al menos un archivo');
+    }
+
+    return errors;
   }
 
   resetForm(): void {
@@ -256,6 +399,7 @@ export class FileUploadComponent implements OnInit {
     this.descripcion.set('');
     this.selectedFiles.set([]);
     this.errorMessage.set('');
+    this.validationErrors.set([]);
   }
 
   formatFileSize(bytes: number): string {

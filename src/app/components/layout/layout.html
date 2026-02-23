@@ -1,0 +1,11 @@
+<div class="flex flex-col min-h-screen w-full h-full bg-gradient-to-br from-slate-50 to-slate-100">
+  <app-header></app-header>
+  <div class="flex flex-1 overflow-hidden w-full">
+    <app-sidebar></app-sidebar>
+    <main class="flex-1 overflow-y-auto ml-64 w-full">
+      <div class="w-full h-full p-8">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+</div>
