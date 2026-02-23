@@ -1,10 +1,13 @@
-<aside
-  class="w-64 bg-slate-900 text-white py-6 fixed left-0 top-16 overflow-y-auto border-r border-slate-800 shadow-lg-soft"
-  style="height: calc(100vh - 4rem)">
-  <nav class="flex flex-col px-3">
+<aside [ngClass]="{
+    'translate-x-0': isOpen,
+    '-translate-x-full': !isOpen
+  }"
+  class="w-56 bg-slate-900 text-white overflow-y-auto border-r border-slate-800 shadow-lg-soft transition-transform duration-300 ease-in-out md:translate-x-0 md:relative md:!w-64 md:top-0 py-6">
+  <nav class="flex flex-col px-3 h-full">
     <ul class="space-y-1">
       <li>
         <a routerLink="/" routerLinkActive="bg-blue-600 text-white" [routerLinkActiveOptions]="{ exact: true }"
+          (click)="onNavigate()"
           class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-slate-800 hover:text-blue-400 group">
           <span
             class="text-xl w-6 h-6 flex items-center justify-center group-hover:scale-110 transition-transform">🏠</span>
@@ -12,7 +15,7 @@
         </a>
       </li>
       <li>
-        <a routerLink="/expedientes" routerLinkActive="bg-blue-600 text-white"
+        <a routerLink="/expedientes" routerLinkActive="bg-blue-600 text-white" (click)="onNavigate()"
           class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-slate-800 hover:text-blue-400 group">
           <span
             class="text-xl w-6 h-6 flex items-center justify-center group-hover:scale-110 transition-transform">📁</span>
@@ -20,7 +23,7 @@
         </a>
       </li>
       <li>
-        <a routerLink="/documentos" routerLinkActive="bg-blue-600 text-white"
+        <a routerLink="/documentos" routerLinkActive="bg-blue-600 text-white" (click)="onNavigate()"
           class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-slate-800 hover:text-blue-400 group">
           <span
             class="text-xl w-6 h-6 flex items-center justify-center group-hover:scale-110 transition-transform">📄</span>
@@ -28,7 +31,7 @@
         </a>
       </li>
       <li class="mt-6 pt-6 border-t border-slate-700">
-        <a routerLink="/configuracion" routerLinkActive="bg-blue-600 text-white"
+        <a routerLink="/configuracion" routerLinkActive="bg-blue-600 text-white" (click)="onNavigate()"
           class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-slate-800 hover:text-blue-400 group">
           <span
             class="text-xl w-6 h-6 flex items-center justify-center group-hover:scale-110 transition-transform">⚙️</span>

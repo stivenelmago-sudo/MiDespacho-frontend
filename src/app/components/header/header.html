@@ -1,15 +1,22 @@
 <header
   class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-blue-700 border-b border-blue-800 shadow-md-soft h-16">
-  <div class="flex items-center justify-between px-6 py-2 max-w-full h-full">
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-lg bg-white bg-opacity-20 flex items-center justify-center">
-        <span class="text-xl font-bold text-white">📋</span>
+  <div class="flex items-center justify-between px-4 md:px-6 py-2 max-w-full h-full">
+    <!-- Mobile menu button & branding -->
+    <div class="flex items-center gap-2 md:gap-3">
+      <button (click)="onToggleMenu()"
+        class="md:hidden p-2 text-white hover:bg-white hover:bg-opacity-10 rounded-lg transition-colors">
+        <span class="text-2xl">☰</span>
+      </button>
+      <div class="w-8 md:w-10 h-8 md:h-10 rounded-lg bg-white bg-opacity-20 flex items-center justify-center">
+        <span class="text-lg md:text-xl font-bold text-white">📋</span>
       </div>
-      <h1 class="text-2xl font-bold text-white">MiDespacho</h1>
+      <h1 class="text-lg md:text-2xl font-bold text-white hidden sm:block">MiDespacho</h1>
     </div>
-    <div class="flex gap-4 items-center">
-      <button class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-10 rounded-lg transition-colors font-medium">
-        👤 Usuario
+    <!-- User menu -->
+    <div class="flex gap-2 md:gap-4 items-center">
+      <button
+        class="px-2 md:px-4 py-2 text-white hover:bg-white hover:bg-opacity-10 rounded-lg transition-colors font-medium text-sm md:text-base">
+        👤 <span class="hidden sm:inline">Usuario</span>
       </button>
     </div>
   </div>

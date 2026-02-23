@@ -1,1 +1,27 @@
-/* Styles handled by Tailwind CSS */
+/* Mobile-first responsive design styles */
+
+/* Ensure main content is responsive */
+main {
+  @apply min-h-0;
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 640px) {
+  button,
+  a {
+    @apply min-h-[44px];
+  }
+}
+
+/* Mobile sidebar transitions */
+@media (max-width: 768px) {
+  aside {
+    &.translate-x-0 {
+      transform: translateX(0);
+    }
+
+    &.-translate-x-full {
+      transform: translateX(-100%);
+    }
+  }
+}
