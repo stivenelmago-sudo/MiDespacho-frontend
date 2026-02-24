@@ -1,7 +1,7 @@
 import { Component, OnInit, signal, effect } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Expedient } from '../../models/expedient.model';
+import { Expedient, DocumentSet } from '../../models/expedient.model';
 import { ExpedientService } from '../../services/expedient.service';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
 import { DocumentSetsSectionComponent } from '../document-sets-section/document-sets-section.component';
@@ -24,9 +24,7 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
                   </div>
                   <div>
                     <h1 class="text-4xl font-bold text-white">{{ exp.client_name }}</h1>
-                    <p class="text-blue-200 mt-2 text-lg">
-                      Expedient #{{ exp.case_number }}
-                    </p>
+                    <p class="text-blue-200 mt-2 text-lg">Expedient #{{ exp.case_number }}</p>
                   </div>
                 </div>
               </div>
@@ -202,7 +200,9 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
             <div class="text-center py-16">
               <span class="text-6xl mb-4 inline-block opacity-50">⚠️</span>
               <p class="text-xl font-bold text-gray-900">Expedient not found</p>
-              <p class="text-gray-600 mt-2">The expedient you are looking for does not exist or was deleted</p>
+              <p class="text-gray-600 mt-2">
+                The expedient you are looking for does not exist or was deleted
+              </p>
             </div>
           </div>
         }
@@ -214,7 +214,7 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
   styles: [],
 })
 export class ExpedientDetailComponent implements OnInit {
-  protected readonly expedient = signal<Expediente | null>(null);
+  protected readonly expedient = signal<Expedient | null>(null);
   protected readonly isLoading = signal(true);
   protected readonly errorMessage = signal('');
 
@@ -267,8 +267,11 @@ export class ExpedientDetailComponent implements OnInit {
     });
   }
 
-  getTotalFiles(expediente: Expediente): number {
-    return expediente.document_sets.reduce((sum, set) => sum + set.files.length, 0);
+  getTotalFiles(expediente: Expedient): number {
+    return expediente.document_sets.reduce(
+      (sum: number, set: DocumentSet) => sum + set.files.length,
+      0,
+    );
   }
 
   getStatusClass(status: string): string {
