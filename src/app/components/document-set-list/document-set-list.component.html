@@ -3,9 +3,9 @@
   <div class="card border-l-4 border-blue-500 bg-blue-50 animate-fade-in">
     <div class="text-center py-12">
       <div class="text-6xl mb-4">📭</div>
-      <p class="text-lg font-semibold text-gray-900">No hay documentos cargados aún</p>
+      <p class="text-lg font-semibold text-gray-900">No documents uploaded yet</p>
       <p class="text-sm text-gray-600 mt-2">
-        Carga el primer conjunto de documentos para comenzar
+        Upload your first document set to get started
       </p>
     </div>
   </div>
@@ -14,20 +14,20 @@
     @for (docSet of _documentSets(); track docSet.id) {
     <div
       class="card border-l-4 border-blue-500 hover:border-blue-600 hover:shadow-lg transition-all duration-300 animate-slide-up"
-      role="region" [attr.aria-label]="'Conjunto de documentos: ' + docSet.titulo">
-      <!-- Header del Conjunto -->
+      role="region" [attr.aria-label]="'Document set: ' + docSet.title">
+      <!-- Set Header -->
       <div class="flex justify-between items-start mb-4 pb-4 border-b border-gray-200">
         <div class="flex-1">
           <div class="flex items-center gap-2 mb-2">
             <span class="text-xl">📋</span>
-            <h3 class="text-xl font-bold text-gray-900">{{ docSet.titulo }}</h3>
+            <h3 class="text-xl font-bold text-gray-900">{{ docSet.title }}</h3>
           </div>
-          <p class="text-sm text-gray-600 ml-8">{{ docSet.descripcion }}</p>
+          <p class="text-sm text-gray-600 ml-8">{{ docSet.description }}</p>
           <div class="flex gap-6 mt-3 ml-8 text-sm text-gray-500">
             <span class="flex items-center gap-1">
               <span>📁</span>
               <strong>{{ docSet.files.length }}</strong>
-              {{ docSet.files.length === 1 ? 'archivo' : 'archivos' }}
+              {{ docSet.files.length === 1 ? 'file' : 'files' }}
             </span>
             <span class="flex items-center gap-1">
               <span>📅</span>
@@ -37,17 +37,17 @@
         </div>
         <button (click)="deleteSet(docSet.id)" [disabled]="isDeleting() === docSet.id"
           class="btn btn-danger btn-sm ml-4 flex items-center gap-2"
-          [attr.aria-label]="'Eliminar conjunto de documentos: ' + docSet.titulo" title="Eliminar conjunto">
+          [attr.aria-label]="'Delete document set: ' + docSet.title" title="Delete set">
           🗑️
-          {{ isDeleting() === docSet.id ? 'Eliminando...' : 'Eliminar' }}
+          {{ isDeleting() === docSet.id ? 'Deleting...' : 'Delete' }}
         </button>
       </div>
 
-      <!-- Lista de archivos -->
+      <!-- Files list -->
       @if (docSet.files.length > 0) {
       <div class="space-y-2">
         <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">
-          Archivos incluidos
+          Included files
         </p>
         <ul role="list" class="space-y-2">
           @for (file of docSet.files; track file.id) {
@@ -56,26 +56,26 @@
             <div class="flex items-center space-x-3 flex-1 min-w-0">
               <span class="text-lg">📄</span>
               <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-gray-900 truncate" [title]="file.nombre_original">
-                  {{ file.nombre_original }}
+                <p class="text-sm font-medium text-gray-900 truncate" [title]="file.original_name">
+                  {{ file.original_name }}
                 </p>
                 <p class="text-xs text-gray-500 mt-1">
                   <span class="text-blue-600 font-semibold">
-                    {{ formatFileSize(file.tamanio_bytes) }}
+                    {{ formatFileSize(file.size_bytes) }}
                   </span>
                   •
                   {{ formatDate(file.created_at) }}
                 </p>
               </div>
             </div>
-            <button (click)="downloadFile(file.id, file.nombre_original)"
+            <button (click)="downloadFile(file.id, file.original_name)"
               class="btn btn-secondary btn-sm mr-2 flex-shrink-0"
-              [attr.aria-label]="'Descargar archivo: ' + file.nombre_original" title="Descargar archivo">
+              [attr.aria-label]="'Download file: ' + file.original_name" title="Download file">
               ⬇️
             </button>
             <button (click)="deleteFile(file.id)" [disabled]="isDeleting() === file.id"
-              class="btn btn-danger btn-sm ml-2 flex-shrink-0"
-              [attr.aria-label]="'Eliminar archivo: ' + file.nombre_original" title="Eliminar archivo">
+              class="btn btn-danger btn-sm ml-2 flex-shrink-0" [attr.aria-label]="'Delete file: ' + file.original_name"
+              title="Delete file">
               {{ isDeleting() === file.id ? '⏳' : '✕' }}
             </button>
           </li>

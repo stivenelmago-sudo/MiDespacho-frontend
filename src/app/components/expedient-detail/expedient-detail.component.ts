@@ -1,21 +1,21 @@
 import { Component, OnInit, signal, effect } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Expediente } from '../../models/expediente.model';
-import { ExpedienteService } from '../../services/expediente.service';
+import { Expedient } from '../../models/expedient.model';
+import { ExpedientService } from '../../services/expedient.service';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
 import { DocumentSetsSectionComponent } from '../document-sets-section/document-sets-section.component';
 
 @Component({
-  selector: 'app-expediente-detail',
+  selector: 'app-expedient-detail',
   template: `
     <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <!-- Header con gradient mejorado -->
+      <!-- Header with improved gradient -->
       <div
         class="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white shadow-lg border-b border-blue-900"
       >
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          @if (expediente(); as exp) {
+          @if (expedient(); as exp) {
             <div class="flex justify-between items-start">
               <div class="flex-1">
                 <div class="flex items-center gap-4 mb-3">
@@ -23,9 +23,9 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
                     <span class="text-2xl">⚖️</span>
                   </div>
                   <div>
-                    <h1 class="text-4xl font-bold text-white">{{ exp.cliente_nombre }}</h1>
+                    <h1 class="text-4xl font-bold text-white">{{ exp.client_name }}</h1>
                     <p class="text-blue-200 mt-2 text-lg">
-                      Expediente #{{ exp.numero_expediente }}
+                      Expedient #{{ exp.case_number }}
                     </p>
                   </div>
                 </div>
@@ -34,14 +34,14 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
                 <div
                   [class]="
                     'inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold shadow-md ' +
-                    getStatusClass(exp.estado)
+                    getStatusClass(exp.status)
                   "
                 >
                   <span
                     class="w-2 h-2 rounded-full inline-block"
-                    [class]="getStatusDot(exp.estado)"
+                    [class]="getStatusDot(exp.status)"
                   ></span>
-                  {{ exp.estado }}
+                  {{ exp.status }}
                 </div>
               </div>
             </div>
@@ -57,101 +57,101 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
               <div
                 class="inline-block animate-spin rounded-full h-16 w-16 border-4 border-gray-200 border-t-blue-600 mb-4"
               ></div>
-              <p class="text-lg text-gray-600 font-medium">Cargando expediente...</p>
+              <p class="text-lg text-gray-600 font-medium">Loading expedient...</p>
             </div>
           </div>
-        } @else if (expediente(); as exp) {
+        } @else if (expedient(); as exp) {
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Sidebar - Información del expediente -->
+            <!-- Sidebar - Expedient Information -->
             <aside class="lg:col-span-1">
               <div
                 class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-100"
               >
                 <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-5">
                   <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <span>📋</span> Información del Expediente
+                    <span>📋</span> Expedient Information
                   </h3>
                 </div>
 
                 <div class="px-6 py-6 space-y-6">
                   <div>
                     <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">
-                      Número de Expediente
+                      Case Number
                     </p>
                     <p class="mt-1 text-sm font-medium text-gray-900">
-                      {{ exp.numero_expediente }}
+                      {{ exp.case_number }}
                     </p>
                   </div>
 
                   <div>
                     <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">
-                      Cliente
+                      Client
                     </p>
                     <p class="mt-1 text-sm font-medium text-gray-900">
-                      {{ exp.cliente_nombre }}
+                      {{ exp.client_name }}
                     </p>
                   </div>
 
-                  @if (exp.abogado_asignado) {
+                  @if (exp.assigned_lawyer) {
                     <div>
                       <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">
-                        Abogado Asignado
+                        Assigned Lawyer
                       </p>
                       <p class="mt-1 text-sm font-medium text-gray-900">
-                        {{ exp.abogado_asignado }}
+                        {{ exp.assigned_lawyer }}
                       </p>
                     </div>
                   }
 
                   <div>
                     <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">
-                      Estado
+                      Status
                     </p>
                     <p
                       [class]="
                         'mt-1 text-sm font-medium inline-block px-3 py-1 rounded ' +
-                        getStatusClass(exp.estado)
+                        getStatusClass(exp.status)
                       "
                     >
-                      {{ exp.estado }}
+                      {{ exp.status }}
                     </p>
                   </div>
 
-                  @if (exp.fecha_apertura) {
+                  @if (exp.opening_date) {
                     <div>
                       <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">
-                        Fecha de Apertura
+                        Opening Date
                       </p>
                       <p class="mt-1 text-sm font-medium text-gray-900">
-                        {{ formatDate(exp.fecha_apertura) }}
+                        {{ formatDate(exp.opening_date) }}
                       </p>
                     </div>
                   }
 
-                  @if (exp.fecha_cierre) {
+                  @if (exp.closing_date) {
                     <div>
                       <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">
-                        Fecha de Cierre
+                        Closing Date
                       </p>
                       <p class="mt-1 text-sm font-medium text-gray-900">
-                        {{ formatDate(exp.fecha_cierre) }}
+                        {{ formatDate(exp.closing_date) }}
                       </p>
                     </div>
                   }
 
-                  @if (exp.descripcion) {
+                  @if (exp.description) {
                     <div>
                       <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">
-                        Descripción
+                        Description
                       </p>
-                      <p class="mt-1 text-sm text-gray-700">{{ exp.descripcion }}</p>
+                      <p class="mt-1 text-sm text-gray-700">{{ exp.description }}</p>
                     </div>
                   }
 
-                  <!-- Estadísticas mejoradas -->
+                  <!-- Improved Statistics -->
                   <div class="pt-6 border-t-2 border-gray-200 mt-8">
                     <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">
-                      Resumen
+                      Summary
                     </p>
                     <div class="grid grid-cols-2 gap-4">
                       <div
@@ -161,7 +161,7 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
                           {{ exp.document_sets.length }}
                         </div>
                         <p class="text-xs font-semibold text-gray-700">
-                          Conjunto{{ exp.document_sets.length !== 1 ? 's' : '' }}
+                          Set{{ exp.document_sets.length !== 1 ? 's' : '' }}
                         </p>
                         <p class="text-xs text-gray-600 mt-1">📁</p>
                       </div>
@@ -172,7 +172,7 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
                           {{ getTotalFiles(exp) }}
                         </div>
                         <p class="text-xs font-semibold text-gray-700">
-                          Archivo{{ getTotalFiles(exp) !== 1 ? 's' : '' }}
+                          File{{ getTotalFiles(exp) !== 1 ? 's' : '' }}
                         </p>
                         <p class="text-xs text-gray-600 mt-1">📄</p>
                       </div>
@@ -182,16 +182,16 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
               </div>
             </aside>
 
-            <!-- Main content - Upload y Documents -->
+            <!-- Main content - Upload and Documents -->
             <section class="lg:col-span-2">
               <div class="space-y-8">
                 <!-- Upload form -->
-                <app-file-upload [expedienteId]="exp.id" (uploadSuccess)="onUploadSuccess()" />
+                <app-file-upload [expedientId]="exp.id" (uploadSuccess)="onUploadSuccess()" />
 
                 <!-- Documents section with list -->
                 <app-document-sets-section
                   [documentSets]="exp.document_sets"
-                  [expedienteId]="exp.id"
+                  [expedientId]="exp.id"
                   (documentsRefresh)="onUploadSuccess()"
                 />
               </div>
@@ -201,8 +201,8 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
           <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
             <div class="text-center py-16">
               <span class="text-6xl mb-4 inline-block opacity-50">⚠️</span>
-              <p class="text-xl font-bold text-gray-900">No se encontró el expediente</p>
-              <p class="text-gray-600 mt-2">El expediente que buscas no existe o fue eliminado</p>
+              <p class="text-xl font-bold text-gray-900">Expedient not found</p>
+              <p class="text-gray-600 mt-2">The expedient you are looking for does not exist or was deleted</p>
             </div>
           </div>
         }
@@ -213,49 +213,49 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
   imports: [CommonModule, FileUploadComponent, DocumentSetsSectionComponent],
   styles: [],
 })
-export class ExpedienteDetailComponent implements OnInit {
-  protected readonly expediente = signal<Expediente | null>(null);
+export class ExpedientDetailComponent implements OnInit {
+  protected readonly expedient = signal<Expediente | null>(null);
   protected readonly isLoading = signal(true);
   protected readonly errorMessage = signal('');
 
-  private expedienteId: string = '';
+  private expedientId: string = '';
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly expedienteService: ExpedienteService,
+    private readonly expedientService: ExpedientService,
   ) {
-    // Efecto para recargar expediente cuando sea necesario
+    // Effect to reload expedient when necessary
     effect(() => {
-      if (this.expedienteId) {
-        this.loadExpediente();
+      if (this.expedientId) {
+        this.loadExpedient();
       }
     });
   }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.expedienteId = params['id'];
-      this.loadExpediente();
+      this.expedientId = params['id'];
+      this.loadExpedient();
     });
   }
 
-  private loadExpediente(): void {
+  private loadExpedient(): void {
     this.isLoading.set(true);
-    this.expedienteService.getExpediente(this.expedienteId).subscribe({
+    this.expedientService.getExpedient(this.expedientId).subscribe({
       next: (data) => {
-        this.expediente.set(data);
+        this.expedient.set(data);
         this.isLoading.set(false);
       },
       error: (error) => {
-        console.error('Error loading expediente:', error);
+        console.error('Error loading expedient:', error);
         this.isLoading.set(false);
-        this.errorMessage.set('Error al cargar el expediente');
+        this.errorMessage.set('Error loading expedient');
       },
     });
   }
 
   onUploadSuccess(): void {
-    this.loadExpediente();
+    this.loadExpedient();
   }
 
   formatDate(date: Date | string): string {
@@ -271,23 +271,23 @@ export class ExpedienteDetailComponent implements OnInit {
     return expediente.document_sets.reduce((sum, set) => sum + set.files.length, 0);
   }
 
-  getStatusClass(estado: string): string {
+  getStatusClass(status: string): string {
     const classes: Record<string, string> = {
-      Activo: 'bg-green-100 text-green-800',
-      Cerrado: 'bg-gray-100 text-gray-800',
-      'En Revisión': 'bg-yellow-100 text-yellow-800',
-      Suspendido: 'bg-red-100 text-red-800',
+      Active: 'bg-green-100 text-green-800',
+      Closed: 'bg-gray-100 text-gray-800',
+      'In Review': 'bg-yellow-100 text-yellow-800',
+      Suspended: 'bg-red-100 text-red-800',
     };
-    return classes[estado] || 'bg-gray-100 text-gray-800';
+    return classes[status] || 'bg-gray-100 text-gray-800';
   }
 
-  getStatusDot(estado: string): string {
+  getStatusDot(status: string): string {
     const classes: Record<string, string> = {
-      Activo: 'bg-green-500',
-      Cerrado: 'bg-gray-500',
-      'En Revisión': 'bg-yellow-500',
-      Suspendido: 'bg-red-500',
+      Active: 'bg-green-500',
+      Closed: 'bg-gray-500',
+      'In Review': 'bg-yellow-500',
+      Suspended: 'bg-red-500',
     };
-    return classes[estado] || 'bg-gray-500';
+    return classes[status] || 'bg-gray-500';
   }
 }

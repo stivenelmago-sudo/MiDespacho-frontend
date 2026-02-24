@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { ExpedienteDetailComponent } from './components/expediente-detail/expediente-detail.component';
+import { ExpedientDetailComponent } from './components/expedient-detail/expedient-detail.component';
 import { Dashboard } from './components/dashboard/dashboard';
-import { Expedientes } from './components/expedientes/expedientes';
-import { Documentos } from './components/documentos/documentos';
-import { Configuracion } from './components/configuracion/configuracion';
+import { Expedients } from './components/expedients/expedients';
+import { Documents } from './components/documents/documents';
+import { Configuration } from './components/configuration/configuration';
 
 export const routes: Routes = [
   {
@@ -11,19 +11,19 @@ export const routes: Routes = [
     component: Dashboard,
   },
   {
-    path: 'expedientes',
-    component: Expedientes,
+    path: 'expedients',
+    component: Expedients,
   },
   {
-    path: 'documentos',
-    component: Documentos,
+    path: 'documents',
+    component: Documents,
   },
   {
-    path: 'configuracion',
-    component: Configuracion,
+    path: 'configuration',
+    component: Configuration,
   },
   {
-    path: 'expediente/:id',
-    component: ExpedienteDetailComponent,
+    path: 'expedient/:id',
+    component: ExpedientDetailComponent,
   },
 ];

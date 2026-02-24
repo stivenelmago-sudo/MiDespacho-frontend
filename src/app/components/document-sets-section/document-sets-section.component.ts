@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { DocumentSet } from '../../models/expediente.model';
-import { ExpedienteService } from '../../services/expediente.service';
+import { DocumentSet } from '../../models/expedient.model';
+import { ExpedientService } from '../../services/expedient.service';
 import { DocumentSetListComponent } from '../document-set-list/document-set-list.component';
 
 @Component({
@@ -14,14 +14,14 @@ import { DocumentSetListComponent } from '../document-set-list/document-set-list
 })
 export class DocumentSetsSectionComponent {
   @Input() documentSets: DocumentSet[] = [];
-  @Input() expedienteId: string = '';
+  @Input() expedientId: string = '';
   @Output() documentsRefresh = new EventEmitter<void>();
 
   protected isAddingNew = signal(false);
   protected newSetTitle = signal('');
   protected newSetDescription = signal('');
 
-  constructor(private readonly expedienteService: ExpedienteService) {}
+  constructor(private readonly expedientService: ExpedientService) {}
 
   onDocumentDeleted(): void {
     this.documentsRefresh.emit();
@@ -45,16 +45,16 @@ export class DocumentSetsSectionComponent {
 
   addNewSet(): void {
     if (!this.newSetTitle().trim()) {
-      alert('El título del conjunto es requerido');
+      alert('Set title is required');
       return;
     }
 
-    // Aquí iría la lógica para crear un nuevo conjunto
-    // Por ahora es un placeholder para futura implementación
-    console.log('Crear nuevo conjunto:', {
-      titulo: this.newSetTitle(),
-      descripcion: this.newSetDescription(),
-      expedienteId: this.expedienteId,
+    // Logic to create a new set would go here
+    // For now it's a placeholder for future implementation
+    console.log('Create new set:', {
+      title: this.newSetTitle(),
+      description: this.newSetDescription(),
+      expedientId: this.expedientId,
     });
 
     this.isAddingNew.set(false);

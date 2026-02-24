@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DocumentSet, File } from '../../models/expediente.model';
-import { ExpedienteService } from '../../services/expediente.service';
+import { DocumentSet, File } from '../../models/expedient.model';
+import { ExpedientService } from '../../services/expedient.service';
 
 @Component({
   selector: 'app-document-set-list',
@@ -21,39 +21,39 @@ export class DocumentSetListComponent {
   protected readonly _documentSets = signal<DocumentSet[]>([]);
   protected readonly isDeleting = signal<string | null>(null);
 
-  constructor(private readonly expedienteService: ExpedienteService) {}
+  constructor(private readonly expedientService: ExpedientService) {}
 
   deleteFile(fileId: string): void {
-    if (confirm('¿Estás seguro de que quieres eliminar este archivo?')) {
+    if (confirm('Are you sure you want to delete this file?')) {
       this.isDeleting.set(fileId);
-      this.expedienteService.deleteFile(fileId).subscribe({
+      this.expedientService.deleteFile(fileId).subscribe({
         next: () => {
           this.isDeleting.set(null);
           this.fileDeleted.emit();
         },
         error: () => {
           this.isDeleting.set(null);
-          alert('Error al eliminar el archivo');
+          alert('Error deleting file');
         },
       });
     }
   }
 
   downloadFile(fileId: string, fileName: string): void {
-    this.expedienteService.downloadFile(fileId);
+    this.expedientService.downloadFile(fileId);
   }
 
   deleteSet(documentSetId: string): void {
-    if (confirm('¿Estás seguro de que quieres eliminar este conjunto de documentos?')) {
+    if (confirm('Are you sure you want to delete this document set?')) {
       this.isDeleting.set(documentSetId);
-      this.expedienteService.deleteDocumentSet(documentSetId).subscribe({
+      this.expedientService.deleteDocumentSet(documentSetId).subscribe({
         next: () => {
           this.isDeleting.set(null);
           this.documentDeleted.emit();
         },
         error: () => {
           this.isDeleting.set(null);
-          alert('Error al eliminar el conjunto');
+          alert('Error deleting set');
         },
       });
     }

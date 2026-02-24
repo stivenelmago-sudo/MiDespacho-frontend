@@ -1,54 +1,54 @@
 <section aria-labelledby="document-sets-title" class="space-y-6">
-  <!-- Header mejorado -->
+  <!-- Improved Header -->
   <div class="flex justify-between items-center">
     <div class="flex items-center gap-3">
       <div class="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-md">
         <span class="text-2xl">📚</span>
       </div>
       <div>
-        <h2 id="document-sets-title" class="text-3xl font-bold text-gray-900">Conjuntos de Documentos</h2>
-        <p class="text-sm text-gray-600 mt-1">Organiza y gestiona tus documentos por conjuntos</p>
+        <h2 id="document-sets-title" class="text-3xl font-bold text-gray-900">Document Sets</h2>
+        <p class="text-sm text-gray-600 mt-1">Organize and manage your documents by sets</p>
       </div>
     </div>
     <button (click)="toggleAddNew()" class="btn btn-primary px-6 py-3 flex items-center gap-2 shadow-md hover:shadow-lg"
       [attr.aria-pressed]="isAddingNew()">
       @if (isAddingNew()) {
       <span class="text-lg">✕</span>
-      <span>Cancelar</span>
+      <span>Cancel</span>
       } @else {
       <span class="text-lg">➕</span>
-      <span>Nuevo Conjunto</span>
+      <span>New Set</span>
       }
     </button>
   </div>
 
-  <!-- Formulario para agregar nuevo conjunto -->
+  <!-- Form to add new set -->
   @if (isAddingNew()) {
   <div class="bg-white rounded-xl shadow-lg border-2 border-green-200 space-y-5 p-7 animate-slide-down overflow-hidden">
     <div class="flex items-center gap-3 pb-4 border-b border-green-100">
       <span class="text-3xl">📝</span>
-      <h3 class="text-xl font-bold text-gray-900">Crear Nuevo Conjunto de Documentos</h3>
+      <h3 class="text-xl font-bold text-gray-900">Create New Document Set</h3>
     </div>
 
     <form class="space-y-5" (ngSubmit)="addNewSet()">
       <div class="form-group">
         <label for="new-set-title" class="block text-sm font-semibold text-gray-900 mb-2">
-          Título del Conjunto
+          Set Title
           <span class="required">*</span>
         </label>
         <input id="new-set-title" type="text" [(ngModel)]="newSetTitle" name="newSetTitle"
           class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-base"
-          placeholder="Ej: Sentencias y Resoluciones Judiciales" aria-required="true" required />
+          placeholder="E.g.: Court Judgments and Rulings" aria-required="true" required />
       </div>
 
       <div class="form-group">
         <label for="new-set-description" class="block text-sm font-semibold text-gray-900 mb-2">
-          Descripción
-          <span class="text-xs text-gray-500 font-normal">(opcional)</span>
+          Description
+          <span class="text-xs text-gray-500 font-normal">(optional)</span>
         </label>
         <textarea id="new-set-description" [(ngModel)]="newSetDescription" name="newSetDescription"
           class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 resize-none"
-          placeholder="Describe el contenido de este conjunto..." rows="3"></textarea>
+          placeholder="Describe the contents of this set..." rows="3"></textarea>
       </div>
 
       <div class="flex gap-3 pt-2">
@@ -56,29 +56,29 @@
           class="flex-1 btn btn-primary py-3 px-6 flex items-center justify-center gap-2 font-semibold text-white shadow-md"
           [disabled]="!newSetTitle().trim()">
           <span class="text-lg">✓</span>
-          <span>Crear Conjunto</span>
+          <span>Create Set</span>
         </button>
         <button type="button" (click)="toggleAddNew()"
           class="btn btn-secondary py-3 px-6 flex items-center justify-center gap-2 font-semibold text-gray-700">
           <span class="text-lg">✕</span>
-          <span>Cancelar</span>
+          <span>Cancel</span>
         </button>
       </div>
     </form>
   </div>
   }
 
-  <!-- Lista de conjuntos existentes -->
+  <!-- List of existing sets -->
   @if (documentSets.length === 0 && !isAddingNew()) {
   <div class="bg-white rounded-xl border-2 border-blue-200 shadow-md animate-fade-in">
     <div class="text-center py-16 px-6">
       <div class="text-7xl mb-5 opacity-80">📭</div>
-      <p class="text-xl font-bold text-gray-900 mb-2">No hay documentos cargados aún</p>
+      <p class="text-xl font-bold text-gray-900 mb-2">No documents uploaded yet</p>
       <p class="text-base text-gray-600 mb-6">
-        Carga el primer conjunto de documentos para comenzar a organizarlos
+        Upload your first document set to start organizing them
       </p>
       <button (click)="toggleAddNew()" class="btn btn-primary px-6 py-2 inline-flex items-center gap-2">
-        <span>➕</span> Crear Primer Conjunto
+        <span>➕</span> Create First Set
       </button>
     </div>
   </div>

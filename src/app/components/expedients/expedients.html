@@ -1,39 +1,39 @@
 <div class="p-6">
   <div class="mb-8">
-    <h1 class="text-3xl font-bold text-slate-900 mb-2">Mis Expedientes</h1>
-    <p class="text-slate-600">Gestiona y visualiza todos tus expedientes activos</p>
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">My Expedients</h1>
+    <p class="text-slate-600">Manage and view all your active expedients</p>
   </div>
 
   @if (isLoading()) {
   <div class="flex justify-center items-center h-96">
     <div class="text-center">
       <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      <p class="mt-4 text-slate-600">Cargando expedientes...</p>
+      <p class="mt-4 text-slate-600">Loading expedients...</p>
     </div>
   </div>
   } @else if (error()) {
   <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
     <p class="text-red-700">{{ error() }}</p>
   </div>
-  } @else if (expedientes().length === 0) {
+  } @else if (expedients().length === 0) {
   <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-    <p class="text-blue-700">No hay expedientes disponibles</p>
+    <p class="text-blue-700">No expedients available</p>
   </div>
   } @else {
   <div class="bg-white rounded-xl shadow-md-soft p-6">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      @for (expediente of expedientes(); track expediente.id) {
-      <button (click)="navigateToDetail(expediente.id)"
+      @for (expedient of expedients(); track expedient.id) {
+      <button (click)="navigateToDetail(expedient.id)"
         class="w-full p-4 border border-slate-200 rounded-lg hover:shadow-md-soft transition-all cursor-pointer hover:border-blue-300 bg-white text-left"
         type="button">
         <div class="flex items-start gap-3">
           <div class="text-2xl">📁</div>
           <div class="flex-1">
-            <h3 class="font-semibold text-slate-900">Expediente #{{ expediente.numero_expediente }}</h3>
-            <p class="text-sm text-slate-600 mt-1">{{ expediente.cliente_nombre }}</p>
+            <h3 class="font-semibold text-slate-900">Expedient #{{ expedient.case_number }}</h3>
+            <p class="text-sm text-slate-600 mt-1">{{ expedient.client_name }}</p>
             <div class="mt-3 flex items-center gap-2">
-              <span [class]="'px-2 py-1 text-xs rounded-full font-medium ' + getStatusClass(expediente.estado)">
-                {{ expediente.estado }}
+              <span [class]="'px-2 py-1 text-xs rounded-full font-medium ' + getStatusClass(expedient.status)">
+                {{ expedient.status }}
               </span>
             </div>
           </div>

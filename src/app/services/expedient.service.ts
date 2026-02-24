@@ -1,51 +1,51 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Expediente, DocumentSet } from '../models/expediente.model';
+import { Expedient, DocumentSet } from '../models/expedient.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ExpedienteService {
+export class ExpedientService {
   private readonly apiUrl = 'http://localhost:3000';
 
   constructor(private readonly http: HttpClient) {}
 
-  getExpedientes(): Observable<Expediente[]> {
-    return this.http.get<Expediente[]>(`${this.apiUrl}/expediente`);
+  getExpedients(): Observable<Expedient[]> {
+    return this.http.get<Expedient[]>(`${this.apiUrl}/expedient`);
   }
 
-  getExpediente(id: string): Observable<Expediente> {
-    return this.http.get<Expediente>(`${this.apiUrl}/expediente/${id}`);
+  getExpedient(id: string): Observable<Expedient> {
+    return this.http.get<Expedient>(`${this.apiUrl}/expedient/${id}`);
   }
 
-  createExpediente(data: Partial<Expediente>): Observable<Expediente> {
-    return this.http.post<Expediente>(`${this.apiUrl}/expediente`, data);
+  createExpedient(data: Partial<Expedient>): Observable<Expedient> {
+    return this.http.post<Expedient>(`${this.apiUrl}/expedient`, data);
   }
 
-  updateExpediente(id: string, data: Partial<Expediente>): Observable<Expediente> {
-    return this.http.put<Expediente>(`${this.apiUrl}/expediente/${id}`, data);
+  updateExpedient(id: string, data: Partial<Expedient>): Observable<Expedient> {
+    return this.http.put<Expedient>(`${this.apiUrl}/expedient/${id}`, data);
   }
 
-  deleteExpediente(id: string): Observable<{ message: string }> {
-    return this.http.delete<{ message: string }>(`${this.apiUrl}/expediente/${id}`);
+  deleteExpedient(id: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.apiUrl}/expedient/${id}`);
   }
 
   uploadFiles(
-    expedienteId: string,
-    titulo: string,
-    descripcion: string,
+    expedientId: string,
+    title: string,
+    description: string,
     files: File[],
   ): Observable<DocumentSet> {
     const formData = new FormData();
-    formData.append('titulo', titulo);
-    formData.append('descripcion', descripcion);
+    formData.append('title', title);
+    formData.append('description', description);
 
     for (const file of files) {
       formData.append('files', file);
     }
 
-    return this.http.post<DocumentSet>(`${this.apiUrl}/file/upload/${expedienteId}`, formData);
+    return this.http.post<DocumentSet>(`${this.apiUrl}/file/upload/${expedientId}`, formData);
   }
 
   getDocumentSet(documentSetId: string): Observable<DocumentSet> {
