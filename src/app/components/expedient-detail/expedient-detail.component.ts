@@ -63,7 +63,7 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
             <!-- Sidebar - Expedient Information -->
             <aside class="lg:col-span-1">
               <div
-                class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-100"
+                class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-100 h-full flex flex-col"
               >
                 <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-5">
                   <h3 class="text-lg font-bold text-white flex items-center gap-2">
@@ -71,7 +71,7 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
                   </h3>
                 </div>
 
-                <div class="px-6 py-6 space-y-6">
+                <div class="px-6 py-6 space-y-6 flex-1 flex flex-col">
                   <div>
                     <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">
                       Case Number
@@ -147,7 +147,7 @@ import { DocumentSetsSectionComponent } from '../document-sets-section/document-
                   }
 
                   <!-- Improved Statistics -->
-                  <div class="pt-6 border-t-2 border-gray-200 mt-8">
+                  <div class="pt-6 border-t-2 border-gray-200 mt-auto">
                     <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">
                       Summary
                     </p>
