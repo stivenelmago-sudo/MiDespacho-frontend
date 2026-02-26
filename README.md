@@ -309,3 +309,4 @@ MIT
 ---
 
 **Última actualización:** Febrero 2026
+# MiDespacho-frontend
