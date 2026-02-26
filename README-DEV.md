@@ -1,135 +1,135 @@
 # MiDespacho Frontend
 
-Frontend Angular 21 con Standalone Components, TailwindCSS y Server-Side Rendering (SSR) para la gestión de expedientes jurídicos.
+Angular 21 frontend with Standalone Components, TailwindCSS and Server-Side Rendering (SSR) for legal case file management.
 
-## Requisitos previos
+## Prerequisites
 
 - Node.js 22.10.7+
 - npm 10.9.3+
 
-## Instalación
+## Installation
 
 ```bash
-# Instalar dependencias
+# Install dependencies
 npm install
 ```
 
-## Desarrollo
+## Development
 
 ```bash
-# Iniciar servidor de desarrollo (con SSR)
+# Start development server (with SSR)
 npm start
 
-# El servidor estará disponible en http://localhost:4200
-# SSR renderizado en server.ts
+# The server will be available at http://localhost:4200
+# SSR rendered in server.ts
 ```
 
-## Estructura de features
+## Features Structure
 
-La aplicación está organizada con componentes standalone:
+The application is organized with standalone components:
 
-### Servicios
+### Services
 
 - **ExpedienteService** (`src/app/services/expediente.service.ts`)
-  - `getExpedientes()` - Listar expedientes
-  - `getExpediente(id)` - Obtener expediente
-  - `createExpediente(data)` - Crear expediente
-  - `updateExpediente(id, data)` - Actualizar expediente
-  - `deleteExpediente(id)` - Eliminar expediente
-  - `uploadFiles(expedienteId, titulo, descripcion, files)` - Cargar documentos
-  - `getDocumentSet(documentSetId)` - Obtener conjunto de documentos
-  - `deleteFile(fileId)` - Eliminar archivo
-  - `deleteDocumentSet(documentSetId)` - Eliminar conjunto
+  - `getExpedientes()` - List case files
+  - `getExpediente(id)` - Get case file
+  - `createExpediente(data)` - Create case file
+  - `updateExpediente(id, data)` - Update case file
+  - `deleteExpediente(id)` - Delete case file
+  - `uploadFiles(expedienteId, titulo, descripcion, files)` - Upload documents
+  - `getDocumentSet(documentSetId)` - Get document set
+  - `deleteFile(fileId)` - Delete file
+  - `deleteDocumentSet(documentSetId)` - Delete set
 
-### Componentes
+### Components
 
 - **ExpedienteDetailComponent** (`src/app/components/expediente-detail/`)
-  - Vista principal del expediente
-  - Muestra información del cliente, estado, fechas
-  - Integra carga de documentos y listado
+  - Main case file view
+  - Shows client information, status, dates
+  - Integrates document upload and listing
 
 - **FileUploadComponent** (`src/app/components/file-upload/`)
-  - Formulario para cargar múltiples archivos
-  - Drag & drop soporte
-  - Validaciones de archivo
-  - Retroalimentación visual
+  - Form to upload multiple files
+  - Drag & drop support
+  - File validations
+  - Visual feedback
 
 - **DocumentSetListComponent** (`src/app/components/document-set-list/`)
-  - Listado de conjuntos de documentos
-  - Muestra archivos organizados por conjunto
-  - Eliminación de documentos y conjunto
+  - Document sets listing
+  - Shows files organized by set
+  - Delete documents and sets
 
 ### Models
 
-- **Expediente** - Caso jurídico
-- **DocumentSet** - Conjunto de documentos
-- **File** - Archivo individual
+- **Expediente** - Legal case
+- **DocumentSet** - Set of documents
+- **File** - Individual file
 
-## Rutas
+## Routes
 
-- `/expediente/:id` - Detalle de expediente
+- `/expediente/:id` - Case file detail
 
 ## Build
 
 ```bash
-# Build para producción con SSR
+# Build for production with SSR
 npm run build
 
-# La aplicación compilada está en dist/
+# The compiled application is in dist/
 ```
 
 ## Testing
 
 ```bash
-# Ejecutar tests con Vitest
+# Run tests with Vitest
 npm run test
 
-# Modo watch
+# Watch mode
 npm run watch
 
-# Cobertura
+# Coverage
 npm run test:cov
 ```
 
 ## Styling
 
-El proyecto usa **TailwindCSS** con configuración custom:
+The project uses **TailwindCSS** with custom configuration:
 
-- **Estados de expediente**: Colores específicos para Activo, Cerrado, En Revisión, Suspendido
-- **Paleta jurídica**: Azules corporativos, grises neutrales
-- **Componentes reutilizables**: `.btn-primary`, `.btn-secondary`, `.btn-danger`, `.card`
+- **Case file states**: Specific colors for Active, Closed, Under Review, Suspended
+- **Legal palette**: Corporate blues, neutral grays
+- **Reusable components**: `.btn-primary`, `.btn-secondary`, `.btn-danger`, `.card`
 
-Ver `tailwind.config.js` para personalización.
+See `tailwind.config.js` for customization.
 
 ## Server-Side Rendering (SSR)
 
-La aplicación está configurada con Angular SSR:
+The application is configured with Angular SSR:
 
 ```bash
-# Código SSR
-npm run start    # Inicia server.ts
+# SSR code
+npm start    # Starts server.ts
 
-# SSR renderiza el HTML en servidor antes de enviarlo al cliente
+# SSR renders HTML on server before sending to client
 ```
 
-Archivos SSR:
+SSR files:
 
-- `src/main.server.ts` - Bootstrap para servidor
-- `src/server.ts` - Configuración Express + Angular
-- `src/app/app.config.server.ts` - Configuración SSR
-- `src/app/app.routes.server.ts` - Rutas SSR
+- `src/main.server.ts` - Server bootstrap
+- `src/server.ts` - Express + Angular configuration
+- `src/app/app.config.server.ts` - SSR configuration
+- `src/app/app.routes.server.ts` - SSR routes
 
-## Integración con Backend
+## Backend Integration
 
-El servicio `ExpedienteService` se conecta al backend:
+The `ExpedienteService` connects to the backend:
 
 ```typescript
 private readonly apiUrl = 'http://localhost:3000';
 ```
 
-Asegúrate de que el backend está corriendo en http://localhost:3000
+Make sure the backend is running at http://localhost:3000
 
-## Estructura de carpetas
+## Folder Structure
 
 ```
 src/
@@ -142,36 +142,36 @@ src/
 │   │   └── expediente.model.ts
 │   ├── services/
 │   │   └── expediente.service.ts
-│   ├── app.routes.ts           # Rutas principales
-│   ├── app.config.ts           # Configuración de providers
-│   ├── app.config.server.ts    # Configuración SSR
-│   ├── app.ts                  # Componente raíz
-│   └── app.html                # Template raíz
-├── main.ts                     # Bootstrap cliente
-├── main.server.ts              # Bootstrap servidor
-├── server.ts                   # Servidor Express + SSR
-├── styles.scss                 # Estilos globales con Tailwind
-└── index.html                  # HTML raíz
+│   ├── app.routes.ts           # Main routes
+│   ├── app.config.ts           # Providers configuration
+│   ├── app.config.server.ts    # SSR configuration
+│   ├── app.ts                  # Root component
+│   └── app.html                # Root template
+├── main.ts                     # Client bootstrap
+├── main.server.ts              # Server bootstrap
+├── server.ts                   # Express + SSR server
+├── styles.scss                 # Global styles with Tailwind
+└── index.html                  # Root HTML
 
-angular.json                     # Configuración Angular CLI
-tailwind.config.js              # Configuración TailwindCSS
-postcss.config.js               # Configuración PostCSS
-tsconfig.json                   # Configuración TypeScript
+angular.json                     # Angular CLI configuration
+tailwind.config.js              # TailwindCSS configuration
+postcss.config.js               # PostCSS configuration
+tsconfig.json                   # TypeScript configuration
 ```
 
-## Notas
+## Notes
 
-- Componentes **standalone**: Sin NgModule, imports directos en @Component
-- Signals para state management (recomendado desde Angular 17)
-- TailwindCSS para styling rápido y consistente
-- SSR habilitado para mejor performance y SEO
+- **Standalone components**: No NgModule, direct imports in @Component
+- Signals for state management (recommended since Angular 17)
+- TailwindCSS for fast and consistent styling
+- SSR enabled for better performance and SEO
 
-## Variables de entorno
+## Environment Variables
 
-Ninguna variable de entorno requerida en el frontend. La URL del API está hardcodeada en `ExpedienteService`:
+No environment variables required in the frontend. The API URL is hardcoded in `ExpedienteService`:
 
 ```typescript
 private readonly apiUrl = 'http://localhost:3000';
 ```
 
-Para cambiarla, editar el servicio o agregar environment files.
+To change it, edit the service or add environment files.

@@ -1,52 +1,52 @@
 # MiDespacho - Frontend
 
-Aplicación web moderna para gestión de despachos construida con **Angular 21** y componentes standalone.
+Modern web application for law office management built with **Angular 21** and standalone components.
 
-## 📋 Descripción
+## 📋 Description
 
-MiDespacho Frontend es una aplicación SPA (Single Page Application) desarrollada con Angular 21 que proporciona una interfaz moderna y responsiva para la gestión de expedientes, documentos y archivos.
+MiDespacho Frontend is an SPA (Single Page Application) developed with Angular 21 that provides a modern and responsive interface for managing case files, documents and files.
 
-**Stack Tecnológico:**
+**Tech Stack:**
 - **Framework:** Angular 21.1.0
-- **Lenguaje:** TypeScript 5.9.2 (strict mode)
+- **Language:** TypeScript 5.9.2 (strict mode)
 - **Testing:** Vitest + TestBed
-- **Estilos:** SCSS + Tailwind CSS
+- **Styles:** SCSS + Tailwind CSS
 - **State:** Angular Signals
 - **Build:** Angular CLI 21.1.4
 
-## 🚀 Configuración Rápida
+## 🚀 Quick Setup
 
-### Requisitos Previos
-- Node.js 22.10.7 o superior
-- npm 10.9.3 o superior
-- Angular CLI 21.1.4 (opcional, se puede usar `ng`)
+### Prerequisites
+- Node.js 22.10.7 or higher
+- npm 10.9.3 or higher
+- Angular CLI 21.1.4 (optional, you can use `ng`)
 
-### Instalación
+### Installation
 
 ```bash
 npm install
 ```
 
-## 🏃 Comandos Principales
+## 🏃 Main Commands
 
 ```bash
-# Servidor de desarrollo (puerto 4200)
+# Development server (port 4200)
 npm run start
 
-# Compilar para producción
+# Build for production
 npm run build
 
-# Modo watch
+# Watch mode
 npm run watch
 ```
 
 ## 🧪 Testing
 
 ```bash
-# Ejecutar tests unitarios
+# Run unit tests
 npm run test
 
-# Tests con coverage
+# Tests with coverage
 npm run test:cov
 
 # E2E tests
@@ -55,27 +55,27 @@ npm run test:e2e
 
 ## 🛠️ Code Generation
 
-Usa Angular CLI para generar componentes y other structures:
+Use Angular CLI to generate components and other structures:
 
 ```bash
-# Generar nuevo componente standalone
-ng generate component components/mi-componente
+# Generate new standalone component
+ng generate component components/my-component
 
-# Generar servicio
-ng generate service services/mi-servicio
+# Generate service
+ng generate service services/my-service
 
-# Generar directiva
-ng generate directive directives/mi-directiva
+# Generate directive
+ng generate directive directives/my-directive
 
-# Ver todas las opciones disponibles
+# See all available options
 ng generate --help
 ```
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
-### Componentes Standalone
+### Standalone Components
 
-Todos los componentes de esta aplicación son **standalone**, lo que significa que no dependen de NgModules:
+All components in this application are **standalone**, meaning they don't depend on NgModules:
 
 ```typescript
 @Component({
@@ -86,60 +86,60 @@ Todos los componentes de esta aplicación son **standalone**, lo que significa q
   styleUrl: './dashboard.scss'
 })
 export class DashboardComponent {
-  // Lógica del componente
+  // Component logic
 }
 ```
 
-### Estructura de Carpetas
+### Folder Structure
 
 ```
 src/
 ├── app/
-│   ├── app.config.ts              # Providers globales
-│   ├── app.routes.ts              # Rutas principales
-│   ├── app.ts                     # Componente raíz
-│   ├── components/                # Componentes reutilizables
+│   ├── app.config.ts              # Global providers
+│   ├── app.routes.ts              # Main routes
+│   ├── app.ts                     # Root component
+│   ├── components/                # Reusable components
 │   │   ├── dashboard/
 │   │   ├── expedientes/
 │   │   ├── documento-sets/
 │   │   ├── header/
 │   │   ├── sidebar/
 │   │   └── ...
-│   ├── services/                  # Servicios compartidos
+│   ├── services/                  # Shared services
 │   │   ├── expediente.service.ts
 │   │   └── ...
-│   └── models/                    # Modelos TypeScript
+│   └── models/                    # TypeScript models
 │       ├── expediente.model.ts
 │       └── ...
-├── styles.scss                    # Estilos globales
+├── styles.scss                    # Global styles
 ├── main.ts                        # Bootstrap
-└── index.html                     # HTML principal
+└── index.html                     # Main HTML
 ```
 
-### Patrones Clave
+### Key Patterns
 
-#### 1. Signals para State Management
+#### 1. Signals for State Management
 
 ```typescript
-// Usar signals en lugar de propiedades simples
+// Use signals instead of simple properties
 protected readonly count = signal(0);
 protected readonly isLoading = signal(false);
 
-// Signals computados
+// Computed signals
 protected readonly doubleCount = computed(() => this.count() * 2);
 
-// Efectos
+// Effects
 effect(() => {
-  console.log('Count cambió a:', this.count());
+  console.log('Count changed to:', this.count());
 });
 ```
 
-#### 2. Inyección de Dependencias
+#### 2. Dependency Injection
 
 ```typescript
 @Injectable({ providedIn: 'root' })
 export class MyService {
-  // Lógica del servicio
+  // Service logic
 }
 
 @Component({...})
@@ -148,12 +148,12 @@ export class MyComponent {
 }
 ```
 
-#### 3. Control Flow Moderno
+#### 3. Modern Control Flow
 
 ```html
 <!-- if -->
 @if (isLoading()) {
-  <p>Cargando...</p>
+  <p>Loading...</p>
 }
 
 <!-- for -->
@@ -163,9 +163,9 @@ export class MyComponent {
 
 <!-- switch -->
 @switch (status()) {
-  @case ('active') { <span>Activo</span> }
-  @case ('inactive') { <span>Inactivo</span> }
-  @default { <span>Desconocido</span> }
+  @case ('active') { <span>Active</span> }
+  @case ('inactive') { <span>Inactive</span> }
+  @default { <span>Unknown</span> }
 }
 ```
 
@@ -180,38 +180,38 @@ export class MyComponent {
 })
 export class CardComponent {
   @Input() data: any;
-  // OnPush es más eficiente con Signals
+  // OnPush is more efficient with Signals
 }
 ```
 
-## 📱 Rutas Principales
+## 📱 Main Routes
 
-Las rutas están definidas en `src/app/app.routes.ts`:
+Routes are defined in `src/app/app.routes.ts`:
 
-| Ruta | Componente | Descripción |
+| Route | Component | Description |
 |------|-----------|-------------|
-| `/` | Dashboard | Página principal |
-| `/expedientes` | ExpedientesComponent | Listado de expedientes |
-| `/expedientes/:id` | ExpedienteDetailComponent | Detalle de expediente |
-| `/configuracion` | ConfiguracionComponent | Configuración de la app |
+| `/` | Dashboard | Main page |
+| `/expedientes` | ExpedientesComponent | Case files list |
+| `/expedientes/:id` | ExpedienteDetailComponent | Case file detail |
+| `/configuracion` | ConfiguracionComponent | App configuration |
 
-## 🎨 Estilos
+## 🎨 Styles
 
-- **SCSS:** Todos los componentes usan SCSS para estilos
-- **Tailwind CSS:** Framework de utilidades CSS integrado
-- **Prettier:** Formatea automáticamente estilos
+- **SCSS:** All components use SCSS for styling
+- **Tailwind CSS:** Integrated CSS utilities framework
+- **Prettier:** Automatically formats styles
 
 ```bash
-# Aplicar estilos según config
+# Apply styles according to config
 npm run lint
 ```
 
-## 🌐 Integración con Backend
+## 🌐 Backend Integration
 
-La aplicación se conecta a la API Backend (puerto 3000 por defecto):
+The application connects to the Backend API (port 3000 by default):
 
 ```typescript
-// En ExpedienteService
+// In ExpedienteService
 export class ExpedienteService {
   constructor(private http: HttpClient) {}
 
@@ -221,55 +221,55 @@ export class ExpedienteService {
 }
 ```
 
-Configura la URL base del API en `src/app/app.config.ts` si es necesario.
+Configure the API base URL in `src/app/app.config.ts` if needed.
 
-## 📊 Configuración de Builds
+## 📊 Build Configuration
 
-### Límites de Tamaño
+### Size Limits
 - Initial: 500KB
 - Component styles: 4KB
 
-Configurable en `angular.json` → `architects.build.configurations.production.budgets`
+Configurable in `angular.json` → `architects.build.configurations.production.budgets`
 
 ### Source Maps
-- **Desarrollo:** Habilitados
-- **Producción:** Deshabilitados (para reducir tamaño)
+- **Development:** Enabled
+- **Production:** Disabled (to reduce size)
 
 ## 🔍 Linting & Formatting
 
 ```bash
-# Ver problemas de linting
+# See linting issues
 npm run lint
 
-# Formatear código
+# Format code
 npm run format
 ```
 
-Configuración:
-- **ESLint:** Ver `.eslintrc.json` o `eslint.config.mjs`
-- **Prettier:** Automatiza formatos SCSS y HTML
+Configuration:
+- **ESLint:** See `.eslintrc.json` or `eslint.config.mjs`
+- **Prettier:** Automates SCSS and HTML formats
 
 ## 🚀 Deployment
 
-### Build Optimizado
+### Optimized Build
 
 ```bash
 npm run build
 ```
 
-Genera archivos optimizados en `dist/mi-despacho/`:
-- Hash en nombres para cache busting
-- Tree-shaking de código no usado
-- Minificación y compresión
+Generates optimized files in `dist/mi-despacho/`:
+- Hash in names for cache busting
+- Tree-shaking of unused code
+- Minification and compression
 
 ### Hosting
 
-Los archivos en `dist/` pueden desplegarse en:
-- **Netlify, Vercel, GitHub Pages** (SPA estática)
-- **Nginx/Apache** (requiere configurar SPA routing)
+Files in `dist/` can be deployed to:
+- **Netlify, Vercel, GitHub Pages** (Static SPA)
+- **Nginx/Apache** (requires SPA routing configuration)
 - **Cloud providers** (AWS S3 + CloudFront, Google Cloud Storage, etc.)
 
-#### Configuración SPA en Nginx
+#### Nginx SPA Configuration
 
 ```nginx
 location / {
@@ -277,36 +277,35 @@ location / {
 }
 ```
 
-## 📖 Documentación Adicional
+## 📖 Additional Documentation
 
-- Desarrollo detallado: [`README-DEV.md`](README-DEV.md)
+- Detailed development: [`README-DEV.md`](README-DEV.md)
 - [Angular Docs](https://angular.dev)
 - [Tailwind CSS](https://tailwindcss.com)
 - [Vitest](https://vitest.dev)
 
 ## 🔧 Troubleshooting
 
-**Puerto 4200 en uso:**
+**Port 4200 in use:**
 ```bash
 ng serve --port 4300
 ```
 
-**Problemas de módulos no encontrados:**
+**Module not found issues:**
 ```bash
 npm install
 npm run build
 ```
 
-**Tests fallan:**
+**Tests failing:**
 ```bash
 npm run test -- --no-coverage
 ```
 
-## 📄 Licencia
+## 📄 License
 
 MIT
 
 ---
 
-**Última actualización:** Febrero 2026
-# MiDespacho-frontend
+**Last updated:** February 2026
