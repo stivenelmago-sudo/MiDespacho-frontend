@@ -1,175 +1,248 @@
-# MiDespacho - Frontend
+# 📋 MiDespacho - Frontend
 
-Modern web application for law office management built with **Angular 21** and standalone components.
+> **Gestión moderna de casos legales | Modern law office management platform**
 
-## 📋 Description
+---
 
-MiDespacho Frontend is an SPA (Single Page Application) developed with Angular 21 that provides a modern and responsive interface for managing case files, documents and files.
+## ✨ Aplicación Premium de Gestión de Expedientes
 
-**Tech Stack:**
-- **Framework:** Angular 21.1.0
-- **Language:** TypeScript 5.9.2 (strict mode)
-- **Testing:** Vitest + TestBed
-- **Styles:** SCSS + Tailwind CSS
-- **State:** Angular Signals
-- **Build:** Angular CLI 21.1.4
+MiDespacho es una **solución integral** para abogados y despachos jurídicos, construida con la última tecnología web.
 
-## 🚀 Quick Setup
+| Aspecto | Características |
+|--------|-----------------|
+| 🎯 **Interfaz** | Moderna, intuitiva y responsiva |
+| 📱 **Compatible** | Escritorio, Tablet, Móvil |
+| ⚡ **Rendimiento** | Ultra rápida y optimizada |
+| 🔒 **Seguridad** | TypeScript strict mode |
+| 🎨 **Diseño** | Tailwind CSS + SCSS personalizado |
 
-### Prerequisites
-- Node.js 22.10.7 or higher
-- npm 10.9.3 or higher
-- Angular CLI 21.1.4 (optional, you can use `ng`)
+---
 
-### Installation
+## 🏗️ Stack Tecnológico
 
-```bash
-npm install
+```
+┌─────────────────────────────────────┐
+│   📦 Angular 21.1.0 Standalone     │
+├─────────────────────────────────────┤
+│ • TypeScript 5.9.2 (Strict Mode)   │
+│ • Signals - State Management       │
+│ • Tailwind CSS + SCSS              │
+│ • Vitest + TestBed (Testing)       │
+│ • Angular CLI 21.1.4               │
+└─────────────────────────────────────┘
 ```
 
-## 🏃 Main Commands
+## 🚀 Inicio Rápido
+
+### 📋 Requisitos Previos
 
 ```bash
-# Development server (port 4200)
+Node.js 22.10.7+ | npm 10.9.3+ | Angular CLI 21.1.4 (opcional)
+```
+
+### 💾 Instalación
+
+```bash
+# Clonar y entrar al directorio
+cd MiDespacho-frontend
+
+# Instalar dependencias
+npm install
+
+# ¡Listo! ✅
+```
+
+### ⚡ Comandos Principales
+
+```bash
+# 🔥 Servidor de desarrollo (puerto 4200)
 npm run start
 
-# Build for production
+# 📦 Build para producción
 npm run build
 
-# Watch mode
+# 👁️  Modo watch
 npm run watch
-```
 
-## 🧪 Testing
-
-```bash
-# Run unit tests
+# 🧪 Pruebas unitarias
 npm run test
 
-# Tests with coverage
+# 📊 Pruebas con cobertura
 npm run test:cov
 
-# E2E tests
+# 🌐 E2E tests
 npm run test:e2e
 ```
 
-## 🛠️ Code Generation
+---
 
-Use Angular CLI to generate components and other structures:
+## 📸 Capturas de Pantalla
 
-```bash
-# Generate new standalone component
-ng generate component components/my-component
+### 🏠 Dashboard Principal
+Pantallazo del inicio con estadísticas y casos recientes
 
-# Generate service
-ng generate service services/my-service
+![Dashboard - Panel Principal](./docs/screenshots/01-dashboard.png)
 
-# Generate directive
-ng generate directive directives/my-directive
+**Características mostradas:**
+- 📊 Estadísticas en tiempo real (24 casos activos, 156 documentos)
+- ✅ Expedientes recientes con estado
+- 🕒 Próximas acciones y tareas pendientes
+- 📈 Métricas de productividad
 
-# See all available options
-ng generate --help
+---
+
+### 📁 Gestión de Expedientes
+Vista completa de expedientes con filtros y búsqueda
+
+![Gestión de Expedientes](./docs/screenshots/02-cases.png)
+
+**Características mostradas:**
+- 🔍 Búsqueda y filtros avanzados
+- 📋 Lista completa de casos activos
+- 🏷️ Estados de expedientes
+- ➕ Crear nuevos casos
+- 📂 Organización por carpetas
+
+---
+
+### 📄 Gestor de Documentos
+Organización completa de documentos por categorías
+
+![Gestor de Documentos](./docs/screenshots/03-documents.png)
+
+**Características mostradas:**
+- 📁 Organización por categorías
+- 🔗 Vincular documentos a expedientes
+- 📤 Cargar nuevos documentos
+- 📥 Descargar y compartir
+- 🏷️ Etiquetado inteligente
+- 🔐 Control de permisos
+
+---
+
+### ⚙️ Configuración
+Personalización completa de preferencias y parámetros
+
+![Configuración](./docs/screenshots/04-configuration.png)
+
+**Opciones disponibles:**
+- 👤 Gestión de usuario y perfil
+- 🏢 Configuración del despacho
+- 🔒 Seguridad y autenticación
+- 🔔 Notificaciones y alertas
+- 🎨 Temas (Claro/Oscuro)
+- 📤 Importar/Exportar datos
+- 🌐 Integraciones con sistemas externos
+
+---
+
+## 🎨 Interfaz de Usuario
+
+## 🎨 Interfaz de Usuario
+
+### 🎯 Características Principales
+
+✨ **Componentes Standalone** - Sin dependencias de NgModules
+🎪 **Control Flow Moderno** - `@if`, `@for`, `@switch`
+📊 **State Reactivo** - Signals de Angular
+🔄 **Change Detection OnPush** - Rendimiento optimizado
+📱 **Responsive Design** - Funciona en cualquier dispositivo
+
+### 🎨 Paleta de Colores
+
+```css
+🔵 Primario:    #2563EB (Azul)
+⚪ Secundario:  #F3F4F6 (Gris Claro)
+⬛ Oscuro:      #1F2937 (Gris Oscuro)
+🟢 Éxito:       #10B981 (Verde)
+🟠 Alerta:      #F59E0B (Naranja)
+🔴 Error:       #EF4444 (Rojo)
 ```
 
-## 🏗️ Architecture
+---
 
-### Standalone Components
+## 🏗️ Arquitectura
 
-All components in this application are **standalone**, meaning they don't depend on NgModules:
+### 📂 Estructura de Carpetas
+
+```
+src/app/
+├── 🎯 app.config.ts           # Configuración global
+├── 🛣️  app.routes.ts           # Enrutamiento
+├── 📦 app.ts                   # Componente raíz
+│
+├── 🧩 components/             # Componentes reutilizables
+│   ├── dashboard/             # Panel principal
+│   ├── expedient-detail/      # Detalle de caso
+│   ├── document-set-list/     # Listado de documentos
+│   ├── configuration/         # Configuración
+│   ├── header/                # Encabezado
+│   ├── sidebar/               # Menú lateral
+│   └── ...más componentes
+│
+├── 🔧 services/               # Servicios compartidos
+│   ├── expedient.service.ts
+│   └── document.service.ts
+│
+└── 📋 models/                 # Interfaces TypeScript
+    ├── expedient.model.ts
+    └── document.model.ts
+```
+
+### 🔄 Patrones Principales
+
+#### 1️⃣ Signals para Estado
 
 ```typescript
-@Component({
-  selector: 'app-dashboard',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss'
-})
-export class DashboardComponent {
-  // Component logic
-}
-```
-
-### Folder Structure
-
-```
-src/
-├── app/
-│   ├── app.config.ts              # Global providers
-│   ├── app.routes.ts              # Main routes
-│   ├── app.ts                     # Root component
-│   ├── components/                # Reusable components
-│   │   ├── dashboard/
-│   │   ├── expedientes/
-│   │   ├── documento-sets/
-│   │   ├── header/
-│   │   ├── sidebar/
-│   │   └── ...
-│   ├── services/                  # Shared services
-│   │   ├── expediente.service.ts
-│   │   └── ...
-│   └── models/                    # TypeScript models
-│       ├── expediente.model.ts
-│       └── ...
-├── styles.scss                    # Global styles
-├── main.ts                        # Bootstrap
-└── index.html                     # Main HTML
-```
-
-### Key Patterns
-
-#### 1. Signals for State Management
-
-```typescript
-// Use signals instead of simple properties
+// Estados reactivos simples
 protected readonly count = signal(0);
 protected readonly isLoading = signal(false);
 
-// Computed signals
+// Estados computados
 protected readonly doubleCount = computed(() => this.count() * 2);
 
-// Effects
+// Efectos secundarios
 effect(() => {
-  console.log('Count changed to:', this.count());
+  console.log('Cambio detectado:', this.count());
 });
 ```
 
-#### 2. Dependency Injection
+#### 2️⃣ Inyección de Dependencias
 
 ```typescript
 @Injectable({ providedIn: 'root' })
-export class MyService {
-  // Service logic
+export class ExpedientService {
+  constructor(private http: HttpClient) {}
 }
 
 @Component({...})
 export class MyComponent {
-  constructor(private myService: MyService) {}
+  constructor(private expedientService: ExpedientService) {}
 }
 ```
 
-#### 3. Modern Control Flow
+#### 3️⃣ Control Flow Moderno
 
 ```html
-<!-- if -->
+<!-- Condicionales -->
 @if (isLoading()) {
-  <p>Loading...</p>
+  <p>Cargando...</p>
 }
 
-<!-- for -->
-@for (item of items(); track item.id) {
-  <div>{{ item.name }}</div>
+<!-- Iteraciones -->
+@for (case of cases(); track case.id) {
+  <div>{{ case.name }}</div>
 }
 
-<!-- switch -->
+<!-- Switch -->
 @switch (status()) {
-  @case ('active') { <span>Active</span> }
-  @case ('inactive') { <span>Inactive</span> }
-  @default { <span>Unknown</span> }
+  @case ('active') { <span>✅ Activo</span> }
+  @case ('review') { <span>⏳ En Revisión</span> }
+  @default { <span>❓ Desconocido</span> }
 }
 ```
 
-#### 4. Change Detection OnPush
+#### 4️⃣ Change Detection OnPush
 
 ```typescript
 @Component({
@@ -180,132 +253,277 @@ export class MyComponent {
 })
 export class CardComponent {
   @Input() data: any;
-  // OnPush is more efficient with Signals
+  // Más eficiente con Signals
 }
 ```
 
-## 📱 Main Routes
+---
 
-Routes are defined in `src/app/app.routes.ts`:
+## 🛣️ Rutas Principales
 
-| Route | Component | Description |
+| Ruta | Componente | Descripción |
 |------|-----------|-------------|
-| `/` | Dashboard | Main page |
-| `/expedientes` | ExpedientesComponent | Case files list |
-| `/expedientes/:id` | ExpedienteDetailComponent | Case file detail |
-| `/configuracion` | ConfiguracionComponent | App configuration |
+| `/` | Dashboard | Panel principal |
+| `/expedients` | MyExpedientsComponent | Listado de casos |
+| `/expedients/:id` | ExpedientDetailComponent | Detalle del caso |
+| `/documents` | DocumentsComponent | Gestor de documentos |
+| `/configuration` | ConfigurationComponent | Configuración |
 
-## 🎨 Styles
+---
 
-- **SCSS:** All components use SCSS for styling
-- **Tailwind CSS:** Integrated CSS utilities framework
-- **Prettier:** Automatically formats styles
+## 🎨 Estilos y Temas
+
+### Tailwind CSS + SCSS
+
+- ✅ **Tailwind CSS** - Utilidades CSS modernas
+- ✅ **SCSS** - Estilos componentes personalizados
+- ✅ **Variables CSS** - Temas dinámicos
+- ✅ **Prettier** - Formato automático
 
 ```bash
-# Apply styles according to config
-npm run lint
+npm run lint    # Ver problemas
+npm run format  # Formatear código
 ```
 
-## 🌐 Backend Integration
+---
 
-The application connects to the Backend API (port 3000 by default):
+## 🌐 Integración Backend
+
+## 🌐 Integración Backend
+
+La aplicación se conecta a la API del Backend (puerto 3000 por defecto):
 
 ```typescript
-// In ExpedienteService
-export class ExpedienteService {
+// En ExpedientService
+export class ExpedientService {
   constructor(private http: HttpClient) {}
 
   getExpedientes() {
     return this.http.get('/api/expedientes');
   }
+
+  createExpediente(data: CreateExpedientDTO) {
+    return this.http.post('/api/expedientes', data);
+  }
+
+  updateExpediente(id: string, data: UpdateExpedientDTO) {
+    return this.http.put(`/api/expedientes/${id}`, data);
+  }
+
+  deleteExpediente(id: string) {
+    return this.http.delete(`/api/expedientes/${id}`);
+  }
 }
 ```
 
-Configure the API base URL in `src/app/app.config.ts` if needed.
+Configura la URL base en `src/app/app.config.ts` si es necesario.
 
-## 📊 Build Configuration
+---
 
-### Size Limits
-- Initial: 500KB
-- Component styles: 4KB
+## 🚀 Generación de Código
 
-Configurable in `angular.json` → `architects.build.configurations.production.budgets`
-
-### Source Maps
-- **Development:** Enabled
-- **Production:** Disabled (to reduce size)
-
-## 🔍 Linting & Formatting
+Usa Angular CLI para generar componentes y estructuras:
 
 ```bash
-# See linting issues
-npm run lint
+# 🧩 Componente standalone nuevo
+ng generate component components/my-component
 
-# Format code
+# 🔧 Servicio nuevo
+ng generate service services/my-service
+
+# 📌 Directiva nueva
+ng generate directive directives/my-directive
+
+# 📖 Ver todas las opciones
+ng generate --help
+```
+
+---
+
+## 📊 Configuración de Build
+
+### Límites de Tamaño
+
+```json
+{
+  "initialBudget": "500KB",
+  "componentStyles": "4KB"
+}
+```
+
+Configurable en `angular.json` → `architects.build.configurations.production.budgets`
+
+### Source Maps
+
+```
+Desarrollo:   ✅ Habilitado
+Producción:   ❌ Deshabilitado (reducir tamaño)
+```
+
+---
+
+## 🔍 Linting y Formato
+
+### Verificar Problemas
+
+```bash
+npm run lint
+```
+
+### Formatear Código
+
+```bash
 npm run format
 ```
 
-Configuration:
-- **ESLint:** See `.eslintrc.json` or `eslint.config.mjs`
-- **Prettier:** Automates SCSS and HTML formats
+**Configuración:**
+- **ESLint:** `eslint.config.mjs`
+- **Prettier:** Automáticamente formatea SCSS y HTML
 
-## 🚀 Deployment
+---
 
-### Optimized Build
+## 📦 Build Optimizado
 
 ```bash
 npm run build
 ```
 
-Generates optimized files in `dist/mi-despacho/`:
-- Hash in names for cache busting
-- Tree-shaking of unused code
-- Minification and compression
+Genera archivos optimizados en `dist/mi-despacho/`:
 
-### Hosting
+✨ **Optimizaciones:**
+- ✅ Hash en nombres (cache busting)
+- ✅ Tree-shaking de código no usado
+- ✅ Minificación y compresión
+- ✅ Lazy loading de rutas
+- ✅ Bundling inteligente
 
-Files in `dist/` can be deployed to:
-- **Netlify, Vercel, GitHub Pages** (Static SPA)
-- **Nginx/Apache** (requires SPA routing configuration)
-- **Cloud providers** (AWS S3 + CloudFront, Google Cloud Storage, etc.)
+---
 
-#### Nginx SPA Configuration
+## 🌥️ Despliegue
+
+### Opciones de Hosting
+
+```
+🚀 Netlify     → Conectar repositorio → Deploy automático
+🚀 Vercel      → Zero-config deployment
+🚀 GitHub Pages → Static hosting gratuito
+🚀 AWS S3      → CloudFront CDN
+🚀 Google Cloud → Cloud Storage + CDN
+🚀 Azure       → Static Web Apps
+```
+
+### Configuración Nginx (SPA)
 
 ```nginx
-location / {
-  try_files $uri $uri/ /index.html;
+server {
+  listen 80;
+  server_name example.com;
+
+  root /var/www/html;
+  index index.html;
+
+  location / {
+    try_files $uri $uri/ /index.html;
+  }
+
+  # Cache busting para archivos hash
+  location ~* \.(js|css)$ {
+    expires 1y;
+    add_header Cache-Control "public, immutable";
+  }
 }
 ```
 
-## 📖 Additional Documentation
+---
 
-- Detailed development: [`README-DEV.md`](README-DEV.md)
-- [Angular Docs](https://angular.dev)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Vitest](https://vitest.dev)
+## 📱 Comandos Útiles Rápidos
 
-## 🔧 Troubleshooting
+```bash
+# Desarrollo rápido
+npm run start
 
-**Port 4200 in use:**
+# Compilar y servir
+npm run build && npm run preview
+
+# Pruebas con watch
+npm run test -- --watch
+
+# Limpiar y reinstalar
+npm run clean && npm install
+
+# Análisis de bundel
+ng analyze
+
+# Actualizar Angular
+ng update @angular/core @angular/cli
+```
+
+---
+
+## 🐛 Solución de Problemas
+
+### ❌ Puerto 4200 en uso
+
 ```bash
 ng serve --port 4300
 ```
 
-**Module not found issues:**
+### ❌ Errores de módulos
+
 ```bash
+rm -rf node_modules package-lock.json
 npm install
 npm run build
 ```
 
-**Tests failing:**
+### ❌ Fallan las pruebas
+
 ```bash
-npm run test -- --no-coverage
+npm run test -- --no-coverage --watch=false
 ```
 
-## 📄 License
+### ❌ Error de CORS
 
-MIT
+Verifica la configuración en `app.config.ts`:
+
+```typescript
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideHttpClient(
+      withInterceptors([...]),
+      withXsrfConfiguration({
+        cookieName: 'XSRF-TOKEN',
+        headerName: 'X-XSRF-TOKEN',
+      }),
+    ),
+  ],
+};
+```
 
 ---
 
-**Last updated:** February 2026
+## 📚 Documentación Adicional
+
+| Recurso | Enlace |
+|---------|--------|
+| 📖 Angular Oficial | https://angular.dev |
+| 🎨 Tailwind CSS | https://tailwindcss.com |
+| 🧪 Vitest | https://vitest.dev |
+| TypeScript | https://www.typescriptlang.org |
+| SCSS | https://sass-lang.com |
+
+---
+
+## 🤝 Contribuir
+
+1. Fork el repositorio
+2. Crea una rama (`git checkout -b feature/AmazingFeature`)
+3. Commit cambios (`git commit -m 'Add AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+---
+
+## 📄 Licencia
+
+📝 **MIT License** - Libre para uso comercial y personal
